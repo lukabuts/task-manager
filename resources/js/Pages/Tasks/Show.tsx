@@ -1,11 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Dashboard() {
+function Show() {
     return (
         <AuthenticatedLayout>
-            <Head title="Dashboard" />
-            <h1>Dashboard</h1>
+            <Head title="My tasks" />
+            <div>My tasks</div>
         </AuthenticatedLayout>
     );
 }
+
+export default Show;
