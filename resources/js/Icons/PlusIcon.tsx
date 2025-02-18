@@ -3,7 +3,7 @@ const PlusIcon = ({ className }: { className?: string }) => {
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
-            className={`fill-gray-900 dark:fill-gray-100 size-5 ${className}`}
+            className={`fill-gray-900 dark:fill-gray-100 size-5 shrink-0 ${className}`}
         >
             <path d="M240 64c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 176L32 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l176 0 0 176c0 8.8 7.2 16 16 16s16-7.2 16-16l0-176 176 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-176 0 0-176z" />
         </svg>

@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/react";
 import DeleteUserForm from "./Partials/DeleteUserForm";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
+import ProfilePhoto from "./Partials/ProfilePhoto";
 
 export default function Edit({
     mustVerifyEmail,
@@ -14,6 +15,9 @@ export default function Edit({
             <Head title="Profile" />
 
             <div className="mx-auto space-y-6 ">
+                <div className="div-container sm:p-8 p-4">
+                    <ProfilePhoto className="max-w-xl" />
+                </div>
                 <div className="div-container sm:p-8 p-4">
                     <UpdateProfileInformationForm
                         mustVerifyEmail={mustVerifyEmail}
