@@ -6,7 +6,6 @@ export default function NavLink({
     children,
     ...props
 }: InertiaLinkProps & { active: boolean }) {
-    console.log(active);
     return (
         <Link
             {...props}

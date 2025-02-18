@@ -4,7 +4,7 @@ import DashboardIcon from "@/Icons/DashboardIcon";
 import LogOutIcon from "@/Icons/LogOutIcon";
 import SettingsIcon from "@/Icons/SettingsIcon";
 import { Link, usePage } from "@inertiajs/react";
-import { PropsWithChildren, ReactNode, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { Button } from "@/Components/ui/button";
 import { PlusIcon, UserIcon } from "lucide-react";
 
@@ -18,14 +18,16 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 ">
             <nav className="col-span-1 div-container flex flex-col justify-between custom-nav-class sticky z-10">
                 <div>
-                    <div className="flex items-center gap-2 px-5 py-4 border-b dark:border-b-gray-900 border-gray-100 shadow">
-                        <img
-                            src="images/logo.jpg"
-                            alt="logo"
-                            className="size-10 rounded-full border-2 border-black dark:border-white"
-                        />
-                        <span className="text-xl">Organizer</span>
-                    </div>
+                    <Link href={route("dashboard")}>
+                        <div className="flex items-center gap-2 px-5 py-4 border-b dark:border-b-gray-900 border-gray-100 shadow">
+                            <img
+                                src="images/logo.jpg"
+                                alt="logo"
+                                className="size-10 rounded-full border-2 border-black dark:border-white"
+                            />
+                            <span className="text-xl">Organizer</span>
+                        </div>
+                    </Link>
 
                     <NavLink
                         active={route().current("dashboard")}
@@ -76,7 +78,17 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                             <span>New task</span>
                         </Button>
                         <Link href={route("profile.edit")}>
-                            <UserIcon />
+                            {user.photo ? (
+                                <div className="size-9 border rounded-full overflow-hidden">
+                                    <img
+                                        src={user.photo}
+                                        alt={`${user.name}'s profile picture`}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                            ) : (
+                                <UserIcon />
+                            )}
                         </Link>
                     </div>
                 </header>
