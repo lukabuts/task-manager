@@ -15,10 +15,10 @@ export default function Edit({
             <Head title="Profile" />
 
             <div className="mx-auto space-y-6 ">
-                <div className="div-container sm:p-8 p-4">
+                <div className="div-container p-4">
                     <ProfilePhoto className="max-w-xl" />
                 </div>
-                <div className="div-container sm:p-8 p-4">
+                <div className="div-container p-4">
                     <UpdateProfileInformationForm
                         mustVerifyEmail={mustVerifyEmail}
                         status={status}
@@ -26,11 +26,11 @@ export default function Edit({
                     />
                 </div>
 
-                <div className="div-container sm:p-8 p-4">
+                <div className="div-container p-4">
                     <UpdatePasswordForm className="max-w-xl" />
                 </div>
 
-                <div className="div-container sm:p-8 p-4">
+                <div className="div-container p-4">
                     <DeleteUserForm className="max-w-xl" />
                 </div>
             </div>

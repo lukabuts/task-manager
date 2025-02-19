@@ -5,13 +5,14 @@ import { Button } from "@/Components/ui/button";
 import SubmitFormBtn from "./SubmitFormBtn";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import DeleteProfilePicture from "./DeleteProfilePicture";
 
 const ProfilePhoto = ({ className }: { className?: string }) => {
     const user = usePage().props.auth.user;
     const [previewImage, setPreviewImage] = useState("");
     const [imgError, setImgError] = useState("");
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const {
         data,
         setData,
@@ -62,7 +63,7 @@ const ProfilePhoto = ({ className }: { className?: string }) => {
                 return;
             }
             setData("photo", file);
-
+            setImgError("");
             const reader = new FileReader();
             reader.onloadend = () => {
                 setPreviewImage(reader.result as string);
@@ -78,8 +79,8 @@ const ProfilePhoto = ({ className }: { className?: string }) => {
                 description="Update your account's profile photo"
             />
             <form onSubmit={updateProfilePicture}>
-                <div className="flex gap-6 items-center my-6">
-                    <div className="size-40 border rounded-2xl overflow-hidden">
+                <div className="flex lg:gap-6 gap-4 items-center my-4 lg:my-6">
+                    <div className="size-40 max-xl:size-32 shrink-0 border rounded-2xl overflow-hidden">
                         {previewImage ? (
                             <img
                                 src={previewImage}
@@ -96,16 +97,25 @@ const ProfilePhoto = ({ className }: { className?: string }) => {
                             <UserIcon className="w-full h-full" />
                         )}
                     </div>
-                    <div className="space-y-3">
-                        <div className="flex gap-4 items-center">
-                            <Button className="bg-transparent border-2 rounded-2xl relative overflow-hidden">
+                    <div className="space-y-3 max-lg:space-y-2">
+                        <div className="flex gap-4 lg:items-center max-lg:flex-col">
+                            <Button
+                                type="button"
+                                className="bg-transparent border-2 rounded-2xl relative overflow-hidden dark:text-white text-gray-400 hover:text-white"
+                                onClick={() => {
+                                    fileInputRef.current?.click();
+                                }}
+                            >
                                 <PlusIcon />
                                 <span>Upload Photo</span>
                                 <input
                                     onChange={handleImageChange}
                                     type="file"
                                     accept=".jpg,.jpeg,.png,.webp"
-                                    className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                                    className="hidden"
+                                    value={""}
+                                    title=""
+                                    ref={fileInputRef}
                                 />
                             </Button>
                             {data.photo && (
@@ -113,23 +123,21 @@ const ProfilePhoto = ({ className }: { className?: string }) => {
                                     onClick={() => {
                                         setData("photo", null);
                                         setPreviewImage("");
+                                        setImgError("");
                                     }}
                                 >
-                                    Clear Photo
+                                    <span className="w-full">Clear Photo</span>
                                 </DangerButton>
                             )}
                         </div>
-                        <div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
                             <span>
                                 supported formats: JPEG, PNG, JPG, and WEBP{" "}
                                 <br />
                                 Max file size: 1MB
                             </span>
                         </div>
-                        <InputError
-                            className="mt-2"
-                            message={errors.photo || imgError}
-                        />
+                        <InputError message={errors.photo || imgError} />
                     </div>
                 </div>
                 <div className="flex gap-4 items-center">

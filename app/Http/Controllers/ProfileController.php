@@ -50,9 +50,9 @@ class ProfileController extends Controller
         $user = $request->user();
 
         if ($request->hasFile('photo')) {
-            $imagePath = "storage/".$request->file('photo')->store('profile_images', 'public');
+            $imagePath = "/storage/".$request->file('photo')->store('profile_images', 'public');
             if ($user->photo) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $user->photo));
+                Storage::disk('public')->delete(str_replace('/storage/', '', $user->photo));
             }
 
             $user->photo = $imagePath;
@@ -66,7 +66,7 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         if ($user->photo) {
-            Storage::disk('public')->delete(str_replace('storage/', '', $user->photo));
+            Storage::disk('public')->delete(str_replace('/storage/', '', $user->photo));
             $user->photo = null;
             $user->save();
         }
