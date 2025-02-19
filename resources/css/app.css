@@ -4,12 +4,12 @@
 
 @layer components {
     .custom-nav-class {
-        height: calc(100vh - 3rem);
+        height: calc(100svh - 3rem);
         top: 1.5rem;
     }
 
     .div-container {
-        @apply bg-gray-100 shadow sm:rounded-lg dark:bg-gray-800;
+        @apply bg-white dark:bg-gray-800 shadow-md rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition;
     }
 }
 
