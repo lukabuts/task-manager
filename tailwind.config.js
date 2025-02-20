@@ -25,10 +25,15 @@ export default {
                     "0%": { opacity: 0, transform: "translateX(100%)" },
                     "100%": { opacity: 1, transform: "translateX(0)" },
                 },
+                slideFromLeft: {
+                    "0%": { transform: "translateX(-100%)" },
+                    "100%": { transform: "translateX(0)" },
+                },
             },
             animation: {
                 widthnone: "animate-widthnone 3s linear",
                 slideInRight: "slideInRight 0.3s ease-out",
+                slideFromLeft: "slideFromLeft 0.1s ease-out",
             },
             colors: {
                 yellow: {
