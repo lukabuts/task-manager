@@ -47,9 +47,7 @@ const Show = ({ task }: { task: Task }) => {
                 </div>
 
                 {/* Task Name */}
-                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    {task.name}
-                </h1>
+                <h1 className="title">{task.name}</h1>
 
                 {/* Task Description */}
                 <p className="mt-2 text-gray-700 dark:text-gray-300">

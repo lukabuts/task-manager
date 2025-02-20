@@ -74,3 +74,34 @@ interface ModalPopupProps {
     onClick: () => void;
     processing: boolean;
 }
+
+interface TaskFormCardProps {
+    handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+    data: {
+        name: string;
+        due_date: string;
+        priority: string;
+        description: string;
+    };
+    setData: (field: string, value: any) => void;
+    errors: {
+        name?: string;
+        due_date?: string;
+        priority?: string;
+        description?: string;
+    };
+    processing: boolean;
+    type: "create" | "edit";
+}
+
+interface NotificationProps {
+    message: string;
+    body?: string;
+    type: "error" | "success";
+}
+
+type MessageType = {
+    title: string;
+    content?: string;
+    type: "success" | "error";
+};
