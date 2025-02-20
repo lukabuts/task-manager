@@ -92,16 +92,11 @@ interface TaskFormCardProps {
     };
     processing: boolean;
     type: "create" | "edit";
-}
-
-interface NotificationProps {
-    message: string;
-    body?: string;
-    type: "error" | "success";
+    disabled: boolean;
 }
 
 type MessageType = {
-    title: string;
-    content?: string;
+    message: string;
+    body?: string;
     type: "success" | "error";
 };

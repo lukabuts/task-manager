@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskStoreRequest;
 use App\Models\Task;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         return Inertia::render(
             'Task/Index',
@@ -26,7 +29,7 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render(
             'Task/Create'
@@ -37,11 +40,18 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TaskStoreRequest $request)
+    public function store(TaskStoreRequest $request): RedirectResponse
     {
         $request->user()->tasks()->create($request->only('name', 'description', 'due_date', 'priority'));
 
-        return redirect()->route('task.index')->with('success', 'Task created successfully.');
+        return Redirect::route('task.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Success!',
+                'body' => 'Task Was Created Successfully'
+            ]
+        ]);
+
     }
 
     /**
@@ -61,7 +71,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(Task $task): Response
     {
         return Inertia::render(
             'Task/Edit',
@@ -75,26 +85,38 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TaskStoreRequest $request, Task $task)
+    public function update(TaskStoreRequest $request, Task $task): RedirectResponse
     {
         $task->update($request->only('name', 'description', 'due_date', 'priority'));
         if ($request->task->getChanges()) {
             $task->update(['completed' => false, 'completed_at' => null]);
         }
-        return redirect()->route('task.index')->with('success', 'Task updated successfully.');
+        return Redirect::route('task.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Success!',
+                'body' => 'Task Was Edited Successfully'
+            ]
+        ]);
     }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Task $task): RedirectResponse
     {
         $task->delete();
-        return redirect()->route('task.index')->with('success', 'Task deleted successfully.');
+        return Redirect::route('task.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Success!',
+                'body' => 'Task Was Successfully Deleted'
+            ]
+        ]);
+
     }
 
-    public function complete(Task $task)
+    public function complete(Task $task): void
     {
-
         $data = [];
         if (!$task->completed) {
             $data = ['completed' => !$task->completed, 'completed_at' => now()];

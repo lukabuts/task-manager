@@ -1,25 +1,25 @@
-import { NotificationProps } from "@/types/global";
+import { MessageType } from "@/types/global";
 
-const NotificationCard = ({ message, body, type }: NotificationProps) => {
+const NotificationCard = ({ message }: { message: MessageType }) => {
     return (
         <div
-            className="fixed z-50 max-w-sm w-full bottom-10 sm:right-4 right-2 animate-slideInRight"
+            className="fixed z-50 sm:top-24 top-16 max-w-sm w-full bottom-10 sm:right-4 right-2 animate-slideInRight"
             role="alert"
         >
             <div
                 className={`${
-                    type === "success"
+                    message.type === "success"
                         ? "bg-teal-100 text-teal-900"
-                        : type === "error"
+                        : message.type === "error"
                         ? "bg-red-100 text-red-900"
                         : ""
                 } rounded px-4 py-3 relative shadow-md dark:shadow-muted `}
             >
                 <div
                     className={`${
-                        type === "success"
+                        message.type === "success"
                             ? "bg-teal-500"
-                            : type === "error"
+                            : message.type === "error"
                             ? "bg-red-500"
                             : ""
                     } absolute h-1 top-0 left-0 animate-widthnone w-0`}
@@ -28,9 +28,9 @@ const NotificationCard = ({ message, body, type }: NotificationProps) => {
                     <div className="py-1">
                         <svg
                             className={`${
-                                type === "success"
+                                message.type === "success"
                                     ? "text-teal-500"
-                                    : type === "error"
+                                    : message.type === "error"
                                     ? "text-red-500"
                                     : ""
                             } fill-current h-6 w-6 mr-4`}
@@ -41,8 +41,8 @@ const NotificationCard = ({ message, body, type }: NotificationProps) => {
                         </svg>
                     </div>
                     <div>
-                        <p className="font-bold">{message}</p>
-                        <p className="text-sm">{body}</p>
+                        <p className="font-bold">{message.message}</p>
+                        <p className="text-sm">{message.body}</p>
                     </div>
                 </div>
             </div>

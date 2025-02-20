@@ -39,6 +39,15 @@ const Edit = ({ task }: { task: Task }) => {
                 errors={errors}
                 processing={processing}
                 type="edit"
+                disabled={
+                    processing ||
+                    (data.description === task.description &&
+                        data.due_date === task.due_date &&
+                        data.name === task.name) ||
+                    data.description.trim() === "" ||
+                    data.due_date.trim() === "" ||
+                    data.name.trim() === ""
+                }
             />
         </AuthenticatedLayout>
     );
