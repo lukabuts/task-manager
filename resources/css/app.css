@@ -4,7 +4,7 @@
 
 @layer components {
     .custom-nav-class {
-        height: calc(100svh - 3rem);
+        height: calc(100dvh - 3rem);
         top: 1.5rem;
     }
 

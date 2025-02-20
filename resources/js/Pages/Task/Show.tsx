@@ -29,21 +29,6 @@ const Show = ({ task }: { task: Task }) => {
                     </Link>
 
                     {/* Edit Button */}
-                    <div className="flex items-center gap-4">
-                        <DangerButton
-                            onClick={() => setConfirmingTaskDeletion(true)}
-                            type="button"
-                        >
-                            Delete
-                        </DangerButton>
-                        <Link
-                            href={route("task.edit", task.id)}
-                            className="flex items-center bg-yellow-dark hover:bg-yellow-dark/90 text-white px-4 py-1.5 rounded-md"
-                        >
-                            <EditIcon className="w-5 h-5 mr-2" />
-                            Edit
-                        </Link>
-                    </div>
                 </div>
 
                 {/* Task Name */}
@@ -94,6 +79,23 @@ const Show = ({ task }: { task: Task }) => {
                                   "dd MMM yyyy"
                               )}`
                             : "Not completed"}
+                    </div>
+                </div>
+                <div className="flex justify-end max-sm:mt-4">
+                    <div className="flex items-center gap-4">
+                        <DangerButton
+                            onClick={() => setConfirmingTaskDeletion(true)}
+                            type="button"
+                        >
+                            Delete
+                        </DangerButton>
+                        <Link
+                            href={route("task.edit", task.id)}
+                            className="flex items-center bg-yellow-dark hover:bg-yellow-dark/90 text-white px-4 py-1.5 rounded-md"
+                        >
+                            <EditIcon className="w-5 h-5 mr-2" />
+                            Edit
+                        </Link>
                     </div>
                 </div>
             </div>

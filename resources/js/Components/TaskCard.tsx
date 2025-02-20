@@ -59,7 +59,10 @@ const TaskCard = ({ task }: { task: Task }) => {
                 onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    put(route("task.complete", task.id));
+                    put(route("task.complete", task.id), {
+                        preserveScroll: true,
+                        preserveState: true,
+                    });
                 }}
             >
                 {task.completed ? (

@@ -5,15 +5,18 @@ namespace App\Policies;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TaskPolicy
 {
     
     public function edit(User $user, Task $task): Response
     {
-        return $task->user->is($user)
-            ? Response::allow()
-            : Response::deny('You do not own this task.');
+        if (!$task->user->is($user)) {
+            throw new ModelNotFoundException();
+        }
+
+        return Response::allow();
     }
 
 }
