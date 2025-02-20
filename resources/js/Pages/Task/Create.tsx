@@ -39,6 +39,12 @@ const Edit = ({ task }: { task: Task }) => {
                 errors={errors}
                 processing={processing}
                 type="create"
+                disabled={
+                    processing ||
+                    data.description.trim() === "" ||
+                    data.due_date.trim() === "" ||
+                    data.name.trim() === ""
+                }
             />
         </AuthenticatedLayout>
     );

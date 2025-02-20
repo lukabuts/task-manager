@@ -1,4 +1,5 @@
 import { Config } from "ziggy-js";
+import { MessageType } from "./global";
 
 export interface User {
     id: number;
@@ -15,4 +16,7 @@ export type PageProps<
         user: User;
     };
     ziggy: Config & { location: string };
+    flash: {
+        message: MessageType | null;
+    };
 };

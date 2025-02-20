@@ -9,11 +9,26 @@ import { Button } from "@/Components/ui/button";
 import { PlusIcon, UserIcon } from "lucide-react";
 import { Input } from "@/Components/ui/input";
 import NotificationCard from "@/Components/NotificationCard";
-import { MessageType } from "@/types/global";
+import { createPortal } from "react-dom";
 
 export default function AuthenticatedLayout({ children }: PropsWithChildren) {
-    const user = usePage().props.auth.user;
+    const { user } = usePage().props.auth;
+    const { flash } = usePage().props;
+    const [message, setMessage] = useState(flash.message || null);
 
+    useEffect(() => {
+        if (flash.message) {
+            setMessage(flash.message);
+
+            setTimeout(() => {
+                setMessage(null);
+            }, 2900);
+        }
+    }, [flash.message]);
+
+    useEffect(() => {
+        history.replaceState({}, document.title, window.location.pathname);
+    }, []);
     return (
         <>
             <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 ">
@@ -101,13 +116,12 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                     <main>{children}</main>
                 </div>
             </div>
-            {/* {message.title && (
-                <NotificationCard
-                    message={message.title}
-                    body={message.content}
-                    type={message.type}
-                />
-            )} */}
+
+            {message &&
+                createPortal(
+                    <NotificationCard message={message} />,
+                    document.body
+                )}
         </>
     );
 }

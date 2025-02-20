@@ -13,8 +13,8 @@ const TaskFormCard = ({
     data,
     setData,
     errors,
-    processing,
     type,
+    disabled,
 }: TaskFormCardProps) => {
     const priorityDivClass =
         "flex items-center gap-2 lg:px-4 lg:py-2 py-1 px-2 rounded-lg max-lg:text-sm font-medium transition-colors w-fit";
@@ -29,7 +29,10 @@ const TaskFormCard = ({
 
     return (
         <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+                if (disabled) return;
+                handleSubmit(e);
+            }}
             className="text-gray-900 dark:text-gray-100 text-s w-full div-container sm:p-4"
         >
             <div className="flex gap-4 lg:gap-6 w-full border-b p-4 ">
@@ -156,8 +159,17 @@ const TaskFormCard = ({
                 />
                 <InputError message={errors.description} />
             </div>
-            <div className="p-4 flex justify-end">
-                <Button disabled={processing} className="rounded-2xl">
+            <div className="p-4 flex justify-end gap-4">
+                <Button
+                    onClick={() => {
+                        window.history.back();
+                    }}
+                    variant="outline"
+                    type="button"
+                >
+                    Cancel
+                </Button>
+                <Button disabled={disabled}>
                     <span className="capitalize">{type} task</span>
                 </Button>
             </div>

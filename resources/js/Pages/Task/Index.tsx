@@ -15,7 +15,6 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
         navigatePage(tasks.last_page);
     }
 
-    console.log(usePage());
     return (
         <AuthenticatedLayout>
             <Head title="My Tasks" />
@@ -45,7 +44,6 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
                                 <Button
                                     variant="outline"
                                     disabled={!tasks.prev_page_url}
-                                    className="dark:bg-gray-700 dark:hover:text-gray-50 dark:hover:bg-gray-800"
                                 >
                                     <ChevronLeft />
                                     <span>Previous</span>
@@ -55,7 +53,6 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
                                 <Button
                                     variant="outline"
                                     disabled={!tasks.next_page_url}
-                                    className="dark:bg-gray-700 dark:hover:text-gray-50 dark:hover:bg-gray-800"
                                 >
                                     <span>Next</span>
                                     <ChevronRight />
