@@ -78,7 +78,9 @@ class TaskController extends Controller
     public function update(TaskStoreRequest $request, Task $task)
     {
         $task->update($request->only('name', 'description', 'due_date', 'priority'));
-
+        if ($request->task->getChanges()) {
+            $task->update(['completed' => false, 'completed_at' => null]);
+        }
         return redirect()->route('task.index')->with('success', 'Task updated successfully.');
     }
     /**
@@ -101,8 +103,5 @@ class TaskController extends Controller
         }
 
         $task->update($data);
-
-        return redirect()->route('task.index')->with('success', 'Task updated successfully.');
-
     }
 }

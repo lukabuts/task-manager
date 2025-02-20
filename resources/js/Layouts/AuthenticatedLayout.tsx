@@ -4,11 +4,12 @@ import DashboardIcon from "@/Icons/DashboardIcon";
 import LogOutIcon from "@/Icons/LogOutIcon";
 import SettingsIcon from "@/Icons/SettingsIcon";
 import { Link, router, usePage } from "@inertiajs/react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { Button } from "@/Components/ui/button";
 import { PlusIcon, UserIcon } from "lucide-react";
-
 import { Input } from "@/Components/ui/input";
+import NotificationCard from "@/Components/NotificationCard";
+import { MessageType } from "@/types/global";
 
 export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     const user = usePage().props.auth.user;
@@ -100,6 +101,13 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                     <main>{children}</main>
                 </div>
             </div>
+            {/* {message.title && (
+                <NotificationCard
+                    message={message.title}
+                    body={message.content}
+                    type={message.type}
+                />
+            )} */}
         </>
     );
 }
