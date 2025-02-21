@@ -35,6 +35,9 @@ export default {
                 slideInRight: "slideInRight 0.3s ease-out",
                 slideFromLeft: "slideFromLeft 0.1s ease-out",
             },
+            height: {
+                nav: "calc(100dvh - 3rem)",
+            },
             colors: {
                 yellow: {
                     light: "#FAF2D3",

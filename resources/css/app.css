@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 @layer components {
-    .custom-nav-class {
-        height: calc(100dvh - 3rem);
-        top: 1.5rem;
-    }
-
     .div-container {
         @apply bg-white dark:bg-gray-800 shadow-md rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition;
     }

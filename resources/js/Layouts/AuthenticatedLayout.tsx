@@ -12,6 +12,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     const { flash } = usePage().props;
     const [message, setMessage] = useState(flash.message || null);
     const [isMenuShown, setIsMenuShown] = useState(false);
+    const [isMenuClosing, setIsMenuClosing] = useState(false);
 
     useEffect(() => {
         if (isMenuShown) {
@@ -34,19 +35,36 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     useEffect(() => {
         history.replaceState({}, document.title, window.location.pathname);
     }, []);
+
+    function closeMenu() {
+        setIsMenuClosing(true);
+        setTimeout(() => {
+            setIsMenuShown(false);
+            setIsMenuClosing(false);
+        }, 100);
+    }
     return (
         <>
             <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 ">
-                <NavCard className="max-xl:hidden sticky col-span-1" />
+                <NavCard
+                    className="max-xl:hidden sticky h-nav top-6"
+                    type="desktop"
+                />
                 {isMenuShown && (
                     <>
                         <div
                             className="absolute bg-black/30 top-0 left-0 w-full h-screen z-40"
-                            onClick={() => {
-                                setIsMenuShown(false);
-                            }}
-                        ></div>
-                        <NavCard className="fixed w-56 animate-slideFromLeft" />
+                            onClick={closeMenu}
+                        >
+                            <NavCard
+                                type="mobile"
+                                className={`fixed w-full max-w-80 animate-slideFromLeft h-dvh top-0 left-0 rounded-none ${
+                                    isMenuClosing ? "-left-full" : ""
+                                }`}
+                                setIsMenuShown={setIsMenuShown}
+                                closeMenu={closeMenu}
+                            />
+                        </div>
                     </>
                 )}
                 <div className="col-span-5 space-y-6 z-10 max-xl:col-span-6">
