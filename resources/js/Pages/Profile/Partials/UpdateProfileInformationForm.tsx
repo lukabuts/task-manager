@@ -7,15 +7,16 @@ import { Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 import SectionHeader from "./SectionHeader";
 import SubmitFormBtn from "./SubmitFormBtn";
+import { ProfilePartialProps } from "@/types/global";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
     className = "",
-}: {
+    translations,
+}: ProfilePartialProps & {
     mustVerifyEmail: boolean;
     status?: string;
-    className?: string;
 }) {
     const user = usePage().props.auth.user;
 
@@ -34,13 +35,20 @@ export default function UpdateProfileInformation({
     return (
         <section className={className}>
             <SectionHeader
-                title="Profile Information"
-                description="Update your account's profile information and email address."
+                title={translations.setting_page.profile_information.title}
+                description={
+                    translations.setting_page.profile_information.description
+                }
             />
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel
+                        htmlFor="name"
+                        value={
+                            translations.setting_page.profile_information.name
+                        }
+                    />
 
                     <TextInput
                         id="name"
@@ -56,7 +64,12 @@ export default function UpdateProfileInformation({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel
+                        htmlFor="email"
+                        value={
+                            translations.setting_page.profile_information.name
+                        }
+                    />
 
                     <TextInput
                         id="email"

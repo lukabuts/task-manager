@@ -1,11 +1,12 @@
 import { Link, router, usePage } from "@inertiajs/react";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { Button } from "@/Components/ui/button";
-import { MenuIcon, PlusIcon, UserIcon } from "lucide-react";
+import { EditIcon, MenuIcon, PlusIcon, UserIcon } from "lucide-react";
 import { Input } from "@/Components/ui/input";
 import NotificationCard from "@/Components/NotificationCard";
 import { createPortal } from "react-dom";
 import NavCard from "@/Components/NavCard";
+import NavLink from "@/Components/NavLink";
 
 export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     const { user } = usePage().props.auth;
@@ -13,14 +14,32 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     const [message, setMessage] = useState(flash.message || null);
     const [isMenuShown, setIsMenuShown] = useState(false);
     const [isMenuClosing, setIsMenuClosing] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const { translations } = usePage().props;
+    const xlScreen = 1280;
+    const smScreen = 640;
 
     useEffect(() => {
-        if (isMenuShown) {
-            document.body.style.overflow = "hidden";
+        const html = document.getElementsByTagName("html")[0];
+        const body = document.getElementsByTagName("body")[0];
+        const scrollbarWidth =
+            window.innerWidth - document.documentElement.clientWidth ||
+            body.clientWidth - document.documentElement.clientWidth;
+
+        const isScrollable = window.innerHeight < html.scrollHeight;
+
+        if (isScrollable && isMenuShown && screenWidth < xlScreen) {
+            html.style.paddingRight = `${scrollbarWidth}px`;
         } else {
-            document.body.style.overflow = "auto";
+            html.style.paddingRight = "0px";
         }
-    }, [isMenuShown]);
+
+        if (isMenuShown && screenWidth < xlScreen) {
+            html.style.overflow = "hidden";
+        } else {
+            html.style.overflow = "auto";
+        }
+    }, [isMenuShown, screenWidth]);
 
     useEffect(() => {
         if (flash.message) {
@@ -28,42 +47,83 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
 
             setTimeout(() => {
                 setMessage(null);
-            }, 2900);
+            }, 3100);
         }
     }, [flash.message]);
-
-    useEffect(() => {
-        history.replaceState({}, document.title, window.location.pathname);
-    }, []);
 
     function closeMenu() {
         setIsMenuClosing(true);
         setTimeout(() => {
             setIsMenuShown(false);
             setIsMenuClosing(false);
-        }, 100);
+        }, 150);
     }
+
+    useEffect(() => {
+        if (!user.theme) {
+            const userPrefersDark = window.matchMedia(
+                "(prefers-color-scheme: dark)"
+            ).matches;
+
+            router.patch(route("profile.theme"), {
+                theme: userPrefersDark ? "dark" : "light",
+            });
+        }
+
+        history.replaceState({}, document.title, window.location.pathname);
+
+        window.addEventListener("resize", () => {
+            setScreenWidth(window.innerWidth);
+        });
+    }, []);
+
+    useEffect(() => {
+        if (user.theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else if ((user.theme = "light")) {
+            document.documentElement.classList.remove("dark");
+        }
+    }, [user.theme]);
+
     return (
         <>
-            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 ">
-                <NavCard
-                    className="max-xl:hidden sticky h-nav top-6"
-                    type="desktop"
-                />
-                {isMenuShown && (
+            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 transition-colors">
+                {screenWidth >= xlScreen && (
+                    <div className="relative col-span-1 max-xl:hidden">
+                        <NavCard
+                            className="fixed w-full max-w-nav h-nav top-6"
+                            type="desktop"
+                        />
+                    </div>
+                )}
+                {isMenuShown && screenWidth < xlScreen && (
                     <>
                         <div
-                            className="absolute bg-black/30 top-0 left-0 w-full h-screen z-40"
+                            className="absolute bg-black/30 top-0 left-0 w-full h-screen z-40 xl:hidden"
                             onClick={closeMenu}
                         >
                             <NavCard
                                 type="mobile"
-                                className={`fixed w-full max-w-80 animate-slideFromLeft h-dvh top-0 left-0 rounded-none ${
-                                    isMenuClosing ? "-left-full" : ""
+                                className={`fixed w-full max-w-80 animate-slideFromLeft h-dvh top-0 rounded-none xl:hidden ${
+                                    isMenuClosing ? "-left-96" : "left-0"
                                 }`}
-                                setIsMenuShown={setIsMenuShown}
                                 closeMenu={closeMenu}
-                            />
+                            >
+                                {screenWidth < smScreen && (
+                                    <NavLink
+                                        href={route("task.create")}
+                                        active={route().current("task.create")}
+                                    >
+                                        <EditIcon />
+                                        <span>
+                                            {
+                                                translations.layout.header
+                                                    .new_task
+                                            }
+                                        </span>
+                                    </NavLink>
+                                )}
+                            </NavCard>
                         </div>
                     </>
                 )}
@@ -73,7 +133,9 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                             <Input
                                 type="search"
                                 className="xl:w-72"
-                                placeholder="Search..."
+                                placeholder={
+                                    translations.layout.header.search + "..."
+                                }
                             />
                         </div>
                         <div className="flex items-center gap-4">
@@ -84,7 +146,9 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                                 className="rounded-2xl max-sm:hidden"
                             >
                                 <PlusIcon />
-                                <span>New task</span>
+                                <span>
+                                    {translations.layout.header.new_task}
+                                </span>
                             </Button>
                             <div>
                                 <Link
@@ -117,7 +181,6 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                     <main>{children}</main>
                 </div>
             </div>
-
             {message &&
                 createPortal(
                     <NotificationCard message={message} />,

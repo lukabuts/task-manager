@@ -1,17 +1,20 @@
 <?php
 
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::inertia('/', 'Dashboard')->name('dashboard');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile/picture', [ProfileController::class, 'updatePicture'])->name('profile.picture');
-    Route::delete('/profile/picture', [ProfileController::class, 'deletePicture'])->name('profile.picture');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::controller(ProfileController::class)->prefix('profile')->group(function () {
+        Route::get('/', 'edit')->name('profile.edit');
+        Route::patch('/', 'update')->name('profile.update');
+        Route::delete('/', 'destroy')->name('profile.destroy');
+        Route::post('/picture', 'updatePicture')->name('profile.picture');
+        Route::patch('/theme', 'updateTheme')->name('profile.theme');
+        Route::delete('/picture', 'deletePicture')->name('profile.picture');
+    });
     // Tasks
     Route::controller(TaskController::class)->prefix('tasks')->group(function () {
         Route::get('/', 'index')->name('task.index');
@@ -26,10 +29,9 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{task}', 'destroy')->name('task.destroy');
         });
     });
-
-    
-    
-
 });
+
+Route::get('/locale/{lang}', [LocaleController::class, 'setLocale'])->where('lang', 'en|ka')->name('locale.update');
+
 
 require __DIR__.'/auth.php';

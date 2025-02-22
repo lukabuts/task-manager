@@ -1,7 +1,7 @@
 import { PageProps as InertiaPageProps } from "@inertiajs/core";
 import { AxiosInstance } from "axios";
 import { route as ziggyRoute } from "ziggy-js";
-import { PageProps as AppPageProps } from "./";
+import { PageProps as AppPageProps, TranslationType } from "./";
 
 declare global {
     interface Window {
@@ -73,6 +73,8 @@ interface ModalPopupProps {
     closeModal: () => void;
     onClick: () => void;
     processing: boolean;
+    title: string;
+    description: string;
 }
 
 interface TaskFormCardProps {
@@ -99,4 +101,9 @@ type MessageType = {
     message: string;
     body?: string;
     type: "success" | "error";
+};
+
+type ProfilePartialProps = {
+    className?: string;
+    translations: TranslationType;
 };

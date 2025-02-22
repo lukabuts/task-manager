@@ -3,7 +3,7 @@ import { MessageType } from "@/types/global";
 const NotificationCard = ({ message }: { message: MessageType }) => {
     return (
         <div
-            className="fixed z-50 sm:top-24 top-16 max-w-sm w-full bottom-10 sm:right-4 right-2 animate-slideInRight"
+            className="fixed z-50 sm:top-24 sm:max-w-sm w-full sm:-right-full sm:animate-slideInRight animate-popUp h-10  transition-all max-sm:right-0 max-sm:-bottom-full shadow-lg"
             role="alert"
         >
             <div
@@ -13,7 +13,7 @@ const NotificationCard = ({ message }: { message: MessageType }) => {
                         : message.type === "error"
                         ? "bg-red-100 text-red-900"
                         : ""
-                } rounded px-4 py-3 relative shadow-md dark:shadow-muted `}
+                } rounded px-4 py-3 relative shadow-md dark:shadow-gray-700 max-sm:shadow-none max-sm:w-11/12 max-sm:mx-auto overflow-hidden`}
             >
                 <div
                     className={`${

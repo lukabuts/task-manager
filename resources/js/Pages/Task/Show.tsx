@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Task } from "@/types/global";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { format } from "date-fns";
 import { ArrowLeftIcon, EditIcon } from "lucide-react";
 import clsx from "clsx";
@@ -10,6 +10,7 @@ import ModalPopup from "@/Components/ModalPopup";
 
 const Show = ({ task }: { task: Task }) => {
     const [confirmingTaskDeletion, setConfirmingTaskDeletion] = useState(false);
+    const { translations } = usePage().props;
     const { delete: destroy, processing } = useForm();
     function closeModal() {
         setConfirmingTaskDeletion(false);
@@ -25,7 +26,7 @@ const Show = ({ task }: { task: Task }) => {
                         className="flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                     >
                         <ArrowLeftIcon className="w-5 h-5 mr-2" />
-                        Back to Tasks
+                        {translations.task_page.back_to_tasks}
                     </Link>
 
                     {/* Edit Button */}
@@ -55,13 +56,14 @@ const Show = ({ task }: { task: Task }) => {
                             }
                         )}
                     >
-                        Priority: {task.priority}
+                        {translations.task_page.priority}:{" "}
+                        {translations.task_priority[task.priority]}
                     </span>
 
                     {/* Due Date */}
                     {task.due_date && (
                         <div className="text-gray-600 dark:text-gray-300">
-                            <strong>Due Date:</strong>{" "}
+                            <strong>{translations.task_page.due_date}:</strong>{" "}
                             {format(new Date(task.due_date), "dd MMM yyyy")}
                         </div>
                     )}
@@ -74,11 +76,13 @@ const Show = ({ task }: { task: Task }) => {
                         })}
                     >
                         {task.completed
-                            ? `Completed on: ${format(
+                            ? `${
+                                  translations.task_page.completed.completed
+                              }: ${format(
                                   new Date(task.completed_at || ""),
                                   "dd MMM yyyy"
                               )}`
-                            : "Not completed"}
+                            : `${translations.task_page.completed.not}`}
                     </div>
                 </div>
                 <div className="flex justify-end max-sm:mt-4">
@@ -87,14 +91,14 @@ const Show = ({ task }: { task: Task }) => {
                             onClick={() => setConfirmingTaskDeletion(true)}
                             type="button"
                         >
-                            Delete
+                            {translations.task_page.delete}
                         </DangerButton>
                         <Link
                             href={route("task.edit", task.id)}
                             className="flex items-center bg-yellow-dark hover:bg-yellow-dark/90 text-white px-4 py-1.5 rounded-md"
                         >
                             <EditIcon className="w-5 h-5 mr-2" />
-                            Edit
+                            {translations.task_page.edit}
                         </Link>
                     </div>
                 </div>
@@ -108,6 +112,8 @@ const Show = ({ task }: { task: Task }) => {
                 processing={processing}
                 show={confirmingTaskDeletion}
                 closeModal={closeModal}
+                title={translations.task_page.confirm.title}
+                description={translations.task_page.confirm.description}
             />
         </AuthenticatedLayout>
     );

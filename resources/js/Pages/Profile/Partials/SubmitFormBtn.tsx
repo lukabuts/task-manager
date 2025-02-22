@@ -1,5 +1,6 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Transition } from "@headlessui/react";
+import { usePage } from "@inertiajs/react";
 
 const SubmitFormBtn = ({
     processing,
@@ -10,10 +11,12 @@ const SubmitFormBtn = ({
     recentlySuccessful: boolean;
     disabled?: boolean;
 }) => {
+    const { translations } = usePage().props;
+
     return (
         <div className="flex items-center gap-4">
             <PrimaryButton disabled={processing || disabled}>
-                Save
+                {translations.save}
             </PrimaryButton>
 
             <Transition
@@ -24,7 +27,7 @@ const SubmitFormBtn = ({
                 leaveTo="opacity-0"
             >
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Saved.
+                    {translations.Saved}.
                 </p>
             </Transition>
         </div>

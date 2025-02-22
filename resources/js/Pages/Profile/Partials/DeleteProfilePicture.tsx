@@ -1,20 +1,12 @@
 import DangerButton from "@/Components/DangerButton";
-import InputError from "@/Components/InputError";
-import Modal from "@/Components/Modal";
 import ModalPopup from "@/Components/ModalPopup";
-import SecondaryButton from "@/Components/SecondaryButton";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 const DeleteProfilePicture = () => {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
-
-    const {
-        delete: destroy,
-        processing,
-        errors,
-        recentlySuccessful,
-    } = useForm();
+    const { translations } = usePage().props;
+    const { delete: destroy, processing } = useForm();
 
     function closeModal() {
         setConfirmingUserDeletion(false);
@@ -26,10 +18,9 @@ const DeleteProfilePicture = () => {
                 onClick={() => setConfirmingUserDeletion(true)}
                 type="button"
             >
-                Delete
+                {translations.delete}
             </DangerButton>
-            {errors && <InputError>Someting went wrong</InputError>}
-            {recentlySuccessful && <span>Deleted</span>}
+
             <ModalPopup
                 onClick={() => {
                     closeModal();
@@ -38,6 +29,10 @@ const DeleteProfilePicture = () => {
                 processing={processing}
                 show={confirmingUserDeletion}
                 closeModal={closeModal}
+                title={translations.setting_page.profile_photo.delete.title}
+                description={
+                    translations.setting_page.profile_photo.delete.description
+                }
             />
         </>
     );

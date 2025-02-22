@@ -7,6 +7,7 @@ import CheckedFileIcon from "@/Icons/CheckedFileIcon";
 
 import { useEffect, useState } from "react";
 import { TaskFormCardProps } from "@/types/global";
+import { usePage } from "@inertiajs/react";
 
 const TaskFormCard = ({
     handleSubmit,
@@ -16,6 +17,7 @@ const TaskFormCard = ({
     type,
     disabled,
 }: TaskFormCardProps) => {
+    const { translations } = usePage().props;
     const priorityDivClass =
         "flex items-center gap-2 lg:px-4 lg:py-2 py-1 px-2 rounded-lg max-lg:text-sm font-medium transition-colors w-fit";
     const [selectedPriority, setSelectedPriority] = useState<
@@ -42,7 +44,7 @@ const TaskFormCard = ({
                 <div className="w-full">
                     <Input
                         type="text"
-                        placeholder="Name of task"
+                        placeholder={translations.task_form_page.name_of_task}
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
                     />
@@ -54,7 +56,7 @@ const TaskFormCard = ({
                     <div className="flex items-center gap-10">
                         <div className="flex items-center gap-2 h-10">
                             <TimerIcon className="size-5" />
-                            <span>Due Date</span>
+                            <span>{translations.task_form_page.due_date}</span>
                         </div>
                         <div
                             className={`flex items-center gap-2 text-nowrap rounded-lg font-medium transition-colors h-10 
@@ -85,7 +87,9 @@ const TaskFormCard = ({
                         <div className="flex items-center gap-10">
                             <div className="flex items-center gap-2 h-10">
                                 <FlagIcon className="size-5" />
-                                <span>Priority</span>
+                                <span>
+                                    {translations.task_form_page.priority}
+                                </span>
                             </div>
                             <div
                                 className={`flex items-center gap-2 rounded-lg font-medium transition-colors w-fit h-10 cursor-pointer`}
@@ -105,7 +109,7 @@ const TaskFormCard = ({
                                             );
                                         }}
                                     >
-                                        Low
+                                        {translations.task_priority.low}
                                     </div>
                                     <div
                                         className={`${
@@ -121,7 +125,7 @@ const TaskFormCard = ({
                                             );
                                         }}
                                     >
-                                        Medium
+                                        {translations.task_priority.medium}
                                     </div>
                                     <div
                                         className={`${
@@ -137,7 +141,7 @@ const TaskFormCard = ({
                                             );
                                         }}
                                     >
-                                        High
+                                        {translations.task_priority.high}
                                     </div>
                                 </div>
                             </div>
@@ -149,11 +153,15 @@ const TaskFormCard = ({
                 </div>
             </div>
             <div className="p-4  border-b pt-0 lg:pt-0">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">
+                    {translations.task_form_page.description}
+                </label>
                 <textarea
                     id="description"
                     className="dark:bg-gray-900 shadow rounded-lg bg-gray-100 outline-none focus:outline-none w-full text-gray-900 dark:text-gray-100 mt-4 ld:mt-6 max-h-40 min-h-32 border border-input"
-                    placeholder="Description of task"
+                    placeholder={
+                        translations.task_form_page.description_of_task
+                    }
                     onChange={(e) => setData("description", e.target.value)}
                     value={data.description || ""}
                 />
@@ -167,10 +175,12 @@ const TaskFormCard = ({
                     variant="outline"
                     type="button"
                 >
-                    Cancel
+                    {translations.task_form_page.cancel}
                 </Button>
                 <Button disabled={disabled}>
-                    <span className="capitalize">{type} task</span>
+                    <span className="capitalize">
+                        {translations.task_form_page[type]}
+                    </span>
                 </Button>
             </div>
         </form>

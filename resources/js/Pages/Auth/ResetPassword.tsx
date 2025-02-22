@@ -1,10 +1,10 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import GuestLayout from "@/Layouts/GuestLayout";
+import { Head, useForm, usePage } from "@inertiajs/react";
+import { FormEventHandler } from "react";
 
 export default function ResetPassword({
     token,
@@ -13,28 +13,33 @@ export default function ResetPassword({
     token: string;
     email: string;
 }) {
+    const { translations } = usePage().props;
+
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,
-        password: '',
-        password_confirmation: '',
+        password: "",
+        password_confirmation: "",
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('password.store'), {
-            onFinish: () => reset('password', 'password_confirmation'),
+        post(route("password.store"), {
+            onFinish: () => reset("password", "password_confirmation"),
         });
     };
 
     return (
         <GuestLayout>
-            <Head title="Reset Password" />
+            <Head title={translations.auth.reset_password.title} />
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel
+                        htmlFor="email"
+                        value={translations.auth.form.email}
+                    />
 
                     <TextInput
                         id="email"
@@ -43,14 +48,17 @@ export default function ResetPassword({
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={(e) => setData("email", e.target.value)}
                     />
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel
+                        htmlFor="password"
+                        value={translations.auth.form.password}
+                    />
 
                     <TextInput
                         id="password"
@@ -60,7 +68,7 @@ export default function ResetPassword({
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
+                        onChange={(e) => setData("password", e.target.value)}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -69,7 +77,7 @@ export default function ResetPassword({
                 <div className="mt-4">
                     <InputLabel
                         htmlFor="password_confirmation"
-                        value="Confirm Password"
+                        value={translations.auth.form.confirm_password}
                     />
 
                     <TextInput
@@ -79,7 +87,7 @@ export default function ResetPassword({
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
+                            setData("password_confirmation", e.target.value)
                         }
                     />
 
@@ -91,7 +99,7 @@ export default function ResetPassword({
 
                 <div className="mt-4 flex items-center justify-end">
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
+                        {translations.auth.reset_password.title}
                     </PrimaryButton>
                 </div>
             </form>

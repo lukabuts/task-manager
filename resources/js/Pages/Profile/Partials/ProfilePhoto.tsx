@@ -7,8 +7,9 @@ import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import { useRef, useState } from "react";
 import DeleteProfilePicture from "./DeleteProfilePicture";
+import { ProfilePartialProps } from "@/types/global";
 
-const ProfilePhoto = ({ className }: { className?: string }) => {
+const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
     const user = usePage().props.auth.user;
     const [previewImage, setPreviewImage] = useState("");
     const [imgError, setImgError] = useState("");
@@ -75,8 +76,10 @@ const ProfilePhoto = ({ className }: { className?: string }) => {
     return (
         <section className={className}>
             <SectionHeader
-                title="Profile Photo"
-                description="Update your account's profile photo"
+                title={translations.setting_page.profile_photo.title}
+                description={
+                    translations.setting_page.profile_photo.description
+                }
             />
             <form onSubmit={updateProfilePicture}>
                 <div className="flex lg:gap-6 gap-4 items-center my-4 lg:my-6">
@@ -101,13 +104,18 @@ const ProfilePhoto = ({ className }: { className?: string }) => {
                         <div className="flex gap-4 lg:items-center max-lg:flex-col">
                             <Button
                                 type="button"
-                                className="bg-transparent border-2 rounded-2xl relative overflow-hidden dark:text-white text-gray-400 hover:text-white"
+                                className="bg-transparent border-2 rounded-2xl relative overflow-hidden dark:border-gray-100 text-gray-400 hover:text-white"
                                 onClick={() => {
                                     fileInputRef.current?.click();
                                 }}
                             >
-                                <PlusIcon />
-                                <span>Upload Photo</span>
+                                <PlusIcon className="max-sm:hidden" />
+                                <span>
+                                    {
+                                        translations.setting_page.profile_photo
+                                            .upload_photo
+                                    }
+                                </span>
                                 <input
                                     onChange={handleImageChange}
                                     type="file"
@@ -126,15 +134,27 @@ const ProfilePhoto = ({ className }: { className?: string }) => {
                                         setImgError("");
                                     }}
                                 >
-                                    <span className="w-full">Clear Photo</span>
+                                    <span className="w-full">
+                                        {
+                                            translations.setting_page
+                                                .profile_photo.clear_photo
+                                        }
+                                    </span>
                                 </DangerButton>
                             )}
                         </div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">
                             <span>
-                                supported formats: JPEG, PNG, JPG, and WEBP{" "}
-                                <br />
-                                Max file size: 1MB
+                                {
+                                    translations.setting_page.profile_photo
+                                        .supported_formats
+                                }
+                                : JPEG, PNG, JPG, {translations.and} WEBP <br />
+                                {
+                                    translations.setting_page.profile_photo
+                                        .max_size
+                                }{" "}
+                                : 1MB
                             </span>
                         </div>
                         <InputError message={errors.photo || imgError} />

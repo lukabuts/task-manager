@@ -3,7 +3,7 @@ import forms from "@tailwindcss/forms";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    // darkMode: ["class"],
+    darkMode: ["class"],
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
@@ -22,8 +22,16 @@ export default {
                     "100%": { width: "0%" },
                 },
                 slideInRight: {
-                    "0%": { opacity: 0, transform: "translateX(100%)" },
-                    "100%": { opacity: 1, transform: "translateX(0)" },
+                    "0%": { right: "-130px" },
+                    "3%": { right: "2rem" },
+                    "97%": { right: "2rem" },
+                    "100%": { right: "-130px" },
+                },
+                popUp: {
+                    "0%": { bottom: "-30px" },
+                    "3%": { bottom: "2.5rem" },
+                    "97%": { bottom: "2.5rem" },
+                    "100%": { bottom: "-30px" },
                 },
                 slideFromLeft: {
                     "0%": { transform: "translateX(-100%)" },
@@ -32,11 +40,15 @@ export default {
             },
             animation: {
                 widthnone: "animate-widthnone 3s linear",
-                slideInRight: "slideInRight 0.3s ease-out",
-                slideFromLeft: "slideFromLeft 0.1s ease-out",
+                slideInRight: "slideInRight 3.1s ease-out",
+                slideFromLeft: "slideFromLeft 0.15s ease-out",
+                popUp: "popUp 3.1s ease-out",
             },
             height: {
                 nav: "calc(100dvh - 3rem)",
+            },
+            maxWidth: {
+                nav: "calc(100vw / 6 - 1.9rem)",
             },
             colors: {
                 yellow: {

@@ -3,21 +3,21 @@ import CircleCheckIcon from "@/Icons/CircleCheckIcon";
 import DashboardIcon from "@/Icons/DashboardIcon";
 import LogOutIcon from "@/Icons/LogOutIcon";
 import SettingsIcon from "@/Icons/SettingsIcon";
+import { usePage } from "@inertiajs/react";
 import { XIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+
 const NavCard = ({
     className,
-    setIsMenuShown,
-    isMenuShown,
     type,
     closeMenu,
+    children,
 }: {
     className?: string;
-    setIsMenuShown?: (open: boolean) => void;
     closeMenu?: () => void;
-    isMenuShown?: boolean;
     type: "desktop" | "mobile";
+    children?: React.ReactNode;
 }) => {
+    const { translations } = usePage().props;
     return (
         <>
             <nav
@@ -49,15 +49,16 @@ const NavCard = ({
                         href={route("dashboard")}
                     >
                         <DashboardIcon />
-                        <span>Dashboard</span>
+                        <span>{translations.layout.nav.dashboard}</span>
                     </NavLink>
                     <NavLink
                         active={route().current("task.index")}
                         href={route("task.index")}
                     >
                         <CircleCheckIcon />
-                        <span>My tasks</span>
+                        <span>{translations.layout.nav.my_tasks}</span>
                     </NavLink>
+                    {children}
                 </div>
                 <div>
                     <NavLink
@@ -65,7 +66,7 @@ const NavCard = ({
                         href={route("profile.edit")}
                     >
                         <SettingsIcon />
-                        <span>Settings</span>
+                        <span>{translations.layout.nav.setting}</span>
                     </NavLink>
                     <NavLink
                         as="button"
@@ -74,7 +75,7 @@ const NavCard = ({
                         active={false}
                     >
                         <LogOutIcon />
-                        <span> Log Out</span>
+                        <span>{translations.layout.nav.logout}</span>
                     </NavLink>
                 </div>
             </nav>

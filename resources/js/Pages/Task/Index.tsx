@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import ReactPaginate from "react-paginate";
 
 function Index({ tasks }: { tasks: PaginatedTasks }) {
+    const { translations } = usePage().props;
     function navigatePage(page: number) {
         router.get(route("task.index", { page }));
     }
@@ -17,19 +18,21 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
 
     return (
         <AuthenticatedLayout>
-            <Head title="My Tasks" />
+            <Head title={translations.my_tasks_page.title} />
             {tasks.total === 0 ? (
                 <div className="text-center sm:py-6 py-4">
                     <p className="text-gray-600 dark:text-gray-400">
-                        You have no tasks at the moment.
+                        {translations.my_tasks_page.no_task}
                     </p>
                 </div>
             ) : (
                 <div>
                     <div className="flex justify-between items-center mb-4 sm:mb-6">
-                        <h1 className="title">My Tasks</h1>
+                        <h1 className="title">
+                            {translations.my_tasks_page.title}
+                        </h1>
                         <span className="dark:text-gray-400 text-gray-600">
-                            Total: {tasks.total}
+                            {translations.my_tasks_page.total}: {tasks.total}
                         </span>
                     </div>
                     <div className="grid gap-4">
@@ -46,7 +49,9 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
                                     disabled={!tasks.prev_page_url}
                                 >
                                     <ChevronLeft />
-                                    <span>Previous</span>
+                                    <span>
+                                        {translations.my_tasks_page.previous}
+                                    </span>
                                 </Button>
                             }
                             nextLabel={
@@ -54,7 +59,9 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
                                     variant="outline"
                                     disabled={!tasks.next_page_url}
                                 >
-                                    <span>Next</span>
+                                    <span>
+                                        {translations.my_tasks_page.next}
+                                    </span>
                                     <ChevronRight />
                                 </Button>
                             }
