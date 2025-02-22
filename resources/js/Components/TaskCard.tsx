@@ -2,11 +2,11 @@ import { Task } from "@/types/global";
 import clsx from "clsx";
 import { format, isPast } from "date-fns";
 import { CheckCircleIcon, Circle } from "lucide-react";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 
 const TaskCard = ({ task }: { task: Task }) => {
     const { put } = useForm();
-    // Check if the task is overdue
+    const { translations } = usePage().props;
     const isOverdue =
         (task.completed &&
             task.due_date &&
@@ -36,7 +36,7 @@ const TaskCard = ({ task }: { task: Task }) => {
                             "bg-red-100 text-red-700": task.priority === "high",
                         })}
                     >
-                        {task.priority}
+                        {translations.my_tasks_page.priority[task.priority]}
                     </span>
 
                     {task.due_date && (
@@ -48,7 +48,7 @@ const TaskCard = ({ task }: { task: Task }) => {
                                     : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
                             )}
                         >
-                            Due:{" "}
+                            {translations.my_tasks_page.due}:{" "}
                             {format(new Date(task.due_date), "dd MMM yyyy")}
                         </span>
                     )}

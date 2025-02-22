@@ -47,8 +47,8 @@ class TaskController extends Controller
         return Redirect::route('task.index')->with([
             'message' => [
                 'type' => 'success',
-                'message' => 'Success!',
-                'body' => 'Task Was Created Successfully'
+                'message' => trans('messages.type.success'),
+                'body' => trans('messages.task.created')
             ]
         ]);
 
@@ -94,8 +94,8 @@ class TaskController extends Controller
         return Redirect::route('task.index')->with([
             'message' => [
                 'type' => 'success',
-                'message' => 'Success!',
-                'body' => 'Task Was Edited Successfully'
+                'message' => trans('messages.type.success'),
+                'body' => trans('messages.task.updated')
             ]
         ]);
     }
@@ -108,8 +108,8 @@ class TaskController extends Controller
         return Redirect::route('task.index')->with([
             'message' => [
                 'type' => 'success',
-                'message' => 'Success!',
-                'body' => 'Task Was Successfully Deleted'
+                'message' => trans('messages.type.success'),
+                'body' => trans('messages.task.deleted')
             ]
         ]);
 

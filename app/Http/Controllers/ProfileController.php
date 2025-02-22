@@ -71,7 +71,6 @@ class ProfileController extends Controller
             $user->save();
         }
 
-
         return redirect()->route('profile.edit');
     }
 
@@ -94,5 +93,20 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function updateTheme(Request $request)
+    {
+        $request->validate([
+                'theme' => ['required', 'in:dark,light'],
+            ]);
+
+        $user = $request->user();
+
+        $user->theme = $request->theme;
+        $user->save();
+
+        return redirect()->route('profile.edit');
+
     }
 }

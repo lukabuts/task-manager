@@ -4,7 +4,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
 export default function Login({
@@ -14,6 +14,7 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
+    const { translations } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -30,7 +31,7 @@ export default function Login({
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
+            <Head title={translations.auth.form.log_in} />
 
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
@@ -40,7 +41,10 @@ export default function Login({
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel
+                        htmlFor="email"
+                        value={translations.auth.form.email}
+                    />
 
                     <TextInput
                         id="email"
@@ -49,7 +53,6 @@ export default function Login({
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        isFocused={true}
                         onChange={(e) => setData("email", e.target.value)}
                         required
                     />
@@ -59,13 +62,16 @@ export default function Login({
 
                 <div className="mt-4">
                     <div className="flex justify-between items-center">
-                        <InputLabel htmlFor="password" value="Password" />
+                        <InputLabel
+                            htmlFor="password"
+                            value={translations.auth.form.password}
+                        />
                         {canResetPassword && (
                             <Link
                                 href={route("password.request")}
                                 className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                             >
-                                Forgot?
+                                {translations.auth.form.forgot_password}
                             </Link>
                         )}
                     </div>
@@ -97,7 +103,7 @@ export default function Login({
                             }
                         />
                         <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">
-                            Remember me
+                            {translations.auth.form.remember_me}
                         </span>
                     </label>
                 </div>
@@ -107,10 +113,12 @@ export default function Login({
                         className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800 mx-4"
                         href={route("register")}
                     >
-                        Register
+                        {translations.auth.form.register}
                     </Link>
 
-                    <PrimaryButton disabled={processing}>Log in</PrimaryButton>
+                    <PrimaryButton disabled={processing}>
+                        {translations.auth.form.log_in}
+                    </PrimaryButton>
                 </div>
             </form>
         </GuestLayout>

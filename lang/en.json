@@ -1,0 +1,158 @@
+{
+    "auth": {
+        "title": "Organizer",
+        "description": "Organizer is a task management application that helps you organize your tasks and keep track of your progress. Sign in to get started!",
+        "welcome": "Manage Your Tasks With Organizer!",
+        "form": {
+            "title": "Manage Your Tasks With Organizer",
+            "name": "Name",
+            "email": "Email",
+            "password": "Password",
+            "confirm_password": "Confirm Password",
+            "remember_me": "Remember me",
+            "forgot_password": "Forgot?",
+            "log_in": "Log In",
+            "register": "Register",
+            "already_registered": "Already registered?"
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "description": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+            "email_reset_link": "Email Password Reset Link"
+        },
+        "reset_password": {
+            "title": "Reset Password"
+        },
+        "confirm_password": {
+            "title": "Confirm Password",
+            "description": "This is a secure area of the application. Please confirm your password before continuing.",
+            "confirm": "confirm"
+        },
+        "verify_email": {
+            "title": "Email Verification",
+            "description": "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.",
+            "resend": "Resend Verification Email",
+            "log_out": "Log Out",
+            "success": "A new verification link has been sent to the email address you provided during registration."
+        }
+    },
+    "layout": {
+        "nav": {
+            "dashboard": "Dashboard",
+            "my_tasks": "My Tasks",
+            "setting": "Setting",
+            "logout": "Log Out"
+        },
+        "header": {
+            "search": "Search",
+            "new_task": "New Task",
+            "profile": "Profile"
+        }
+    },
+    "task_priority": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+    },
+    "my_tasks_page": {
+        "title": "My Tasks",
+        "total": "Total",
+        "due": "Due",
+        "next": "Next",
+        "previous": "Previous",
+        "no_task": "You have no task at the moment.",
+        "priority": {
+            "high": "High",
+            "medium": "Medium",
+            "low": "Low"
+        }
+    },
+    "dashboard": {
+        "title": "Dashboard"
+    },
+    "task_page": {
+        "title": "Task",
+        "back_to_tasks": "Back to Tasks",
+        "due_date": "Due Date",
+        "priority": "priority",
+        "completed": {
+            "not": "Not Completed",
+            "completed": "Completed on"
+        },
+        "status": "Status",
+        "delete": "Delete",
+        "edit": "Edit",
+        "confirm": {
+            "title": "Are you sure you want to delete this task?",
+            "description": "Once deleted, you will not be able to recover this task.",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        }
+    },
+    "task_form_page": {
+        "due_date": "Due Date",
+        "priority": "Priority",
+        "name_of_task": "Name of Task",
+        "description": "Description",
+        "description_of_task": "Description of Task",
+        "cancel": "Cancel",
+        "edit": "Edit Task",
+        "create": "Create Task"
+    },
+    "setting_page": {
+        "title": "Setting",
+        "settings": {
+            "title": "Settings",
+            "description": "Manage your account settings.",
+            "theme": "Change Theme",
+            "language": "Change Language"
+        },
+        "profile_photo": {
+            "title": "Profile Photo",
+            "description": "Update your account's profile photo",
+            "upload_photo": "Upload Photo",
+            "clear_photo": "Clear Photo",
+            "remove": "Remove",
+            "supported_formats": "Supported formats",
+            "max_size": "Max size",
+            "delete": {
+                "title": "Are you sure you want to remove your profile photo?",
+                "description": "Once removed, you will not be able to recover your profile photo."
+            }
+        },
+        "profile_information": {
+            "title": "Profile Information",
+            "description": "Update your account's profile information and email address.",
+            "name": "Name",
+            "email": "Email"
+        },
+        "update_password": {
+            "title": "Update Password",
+            "description": "Ensure your account is using a long, random password to stay secure.",
+            "current_password": "Current Password",
+            "new_password": "New Password",
+            "confirm_password": "Confirm Password"
+        },
+
+        "delete_account": {
+            "title": "Delete Account",
+            "description": "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+            "delete": "Delete Account",
+            "confirm": {
+                "title": "Are you sure you want to delete your account?",
+                "description": "once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+                "password": "Password",
+                "delete": "Delete Account",
+                "cancel": "Cancel"
+            }
+        }
+    },
+    "locales": {
+        "en": "English",
+        "ka": "ქართული"
+    },
+    "delete": "Delete",
+    "Saved": "Saved",
+    "save": "Save",
+    "and": "and"
+}

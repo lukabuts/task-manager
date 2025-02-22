@@ -3,19 +3,18 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Transition } from "@headlessui/react";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler, useRef } from "react";
 import SectionHeader from "./SectionHeader";
 import SubmitFormBtn from "./SubmitFormBtn";
+import { ProfilePartialProps } from "@/types/global";
 
 export default function UpdatePasswordForm({
     className = "",
-}: {
-    className?: string;
-}) {
+    translations,
+}: ProfilePartialProps) {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
-
     const {
         data,
         setData,
@@ -53,15 +52,19 @@ export default function UpdatePasswordForm({
     return (
         <section className={className}>
             <SectionHeader
-                title="Update Password"
-                description="Ensure your account is using a long, random password to stay
-                secure."
+                title={translations.setting_page.update_password.title}
+                description={
+                    translations.setting_page.update_password.description
+                }
             />
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
                     <InputLabel
                         htmlFor="current_password"
-                        value="Current Password"
+                        value={
+                            translations.setting_page.update_password
+                                .current_password
+                        }
                     />
 
                     <TextInput
@@ -83,7 +86,13 @@ export default function UpdatePasswordForm({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="New Password" />
+                    <InputLabel
+                        htmlFor="password"
+                        value={
+                            translations.setting_page.update_password
+                                .new_password
+                        }
+                    />
 
                     <TextInput
                         id="password"
@@ -101,7 +110,10 @@ export default function UpdatePasswordForm({
                 <div>
                     <InputLabel
                         htmlFor="password_confirmation"
-                        value="Confirm Password"
+                        value={
+                            translations.setting_page.update_password
+                                .confirm_password
+                        }
                     />
 
                     <TextInput
