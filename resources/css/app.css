@@ -4,7 +4,7 @@
 
 @layer components {
     .div-container {
-        @apply bg-white dark:bg-gray-800 shadow-md rounded-lg border border-gray-200 dark:border-gray-700 transition;
+        @apply bg-white dark:bg-gray-800 shadow-md rounded-lg border dark:border-gray-700;
     }
 
     .title {
@@ -77,13 +77,11 @@
     }
 }
 
-
-
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
     }
 }

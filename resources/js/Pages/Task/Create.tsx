@@ -5,19 +5,11 @@ import { useEffect, useState } from "react";
 import TaskFormCard from "@/Components/TaskFormCard";
 
 const Edit = ({ task }: { task: Task }) => {
-    const {
-        data,
-        setData,
-        errors,
-        post,
-        reset,
-        processing,
-        recentlySuccessful,
-    } = useForm({
+    const { data, setData, errors, post, reset, processing } = useForm({
         name: "",
         description: "",
         due_date: "",
-        priority: "low",
+        priority: "",
     });
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -43,7 +35,8 @@ const Edit = ({ task }: { task: Task }) => {
                     processing ||
                     data.description.trim() === "" ||
                     data.due_date.trim() === "" ||
-                    data.name.trim() === ""
+                    data.name.trim() === "" ||
+                    data.priority.trim() === ""
                 }
             />
         </AuthenticatedLayout>

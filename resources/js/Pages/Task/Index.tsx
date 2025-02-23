@@ -70,7 +70,9 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
                             }}
                             pageCount={tasks.last_page}
                             forcePage={tasks.current_page - 1}
-                            containerClassName="flex items-center md:justify-center w-full justify-between gap-4 sm:scale-100"
+                            containerClassName={`${
+                                tasks.last_page === 1 ? "hidden" : ""
+                            } flex items-center md:justify-center w-full justify-between gap-4 sm:scale-100`}
                             previousClassName="flex items-center"
                             nextClassName="flex items-center"
                             breakLabel="..."

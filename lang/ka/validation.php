@@ -56,10 +56,10 @@ return [
     'file' => ':attribute უნდა იყოს ფაილი.',
     'filled' => ':attribute უნდა ჰქონდეს მნიშვნელობა.',
     'gt' => [
-        'array' => ':attribute უნდა შეიცავდეს მეტი ვიდრე :value ელემენტებს.',
-        'file' => ':attribute უნდა იყოს მეტი ვიდრე :value კილობაიტი.',
-        'numeric' => ':attribute უნდა იყოს მეტი ვიდრე :value.',
-        'string' => ':attribute უნდა იყოს მეტი ვიდრე :value სიმბოლო.',
+        'array' => ':attribute უნდა შეიცავდეს :value-ზე მეტ ელემენტებს.',
+        'file' => ':attribute უნდა იყოს :value-ზე მეტ კილობაიტი.',
+        'numeric' => ':attribute უნდა იყოს :value-ზე მეტი.',
+        'string' => ':attribute უნდა შეიცავდეს :value-ზე მეტ სიმბოლოს.',
     ],
     'gte' => [
         'array' => ':attribute უნდა შეიცავდეს :value ან მეტ ელემენტებს.',
@@ -85,19 +85,19 @@ return [
         'string' => ':attribute უნდა იყოს ნაკლები ვიდრე :value სიმბოლო.',
     ],
     'lte' => [
-        'array' => ':attribute არ უნდა შეიცავდეს მეტი ვიდრე :value ელემენტებს.',
+        'array' => ':attribute არ უნდა შეიცავდეს :value-ზე მეტ ელემენტებს.',
         'file' => ':attribute უნდა იყოს ნაკლები ან ტოლი :value კილობაიტს.',
         'numeric' => ':attribute უნდა იყოს ნაკლები ან ტოლი :value.',
         'string' => ':attribute უნდა იყოს ნაკლები ან ტოლი :value სიმბოლოს.',
     ],
     'mac_address' => ':attribute უნდა იყოს სწორი MAC მისამართი.',
     'max' => [
-        'array' => ':attribute არ უნდა შეიცავდეს მეტი ვიდრე :max ელემენტებს.',
-        'file' => ':attribute არ უნდა იყოს მეტი ვიდრე :max კილობაიტი.',
-        'numeric' => ':attribute არ უნდა იყოს მეტი ვიდრე :max.',
-        'string' => ':attribute არ უნდა იყოს მეტი ვიდრე :max სიმბოლო.',
+        'array' => ':attribute არ უნდა შეიცავდეს :max-ზე მეტ ელემენტებს.',
+        'file' => ':attribute არ უნდა იყოს :max-ზე მეტ კილობაიტი.',
+        'numeric' => ':attribute არ უნდა იყოს :max-ზე მეტ.',
+        'string' => ':attribute არ უნდა შეიცავდეს :max-ზე მეტ სიმბოლოს.',
     ],
-    'max_digits' => ':attribute არ უნდა შეიცავდეს მეტი ვიდრე :max ციფრებს.',
+    'max_digits' => ':attribute არ უნდა შეიცავდეს :max-ზე მეტ ციფრებს.',
     'mimes' => ':attribute უნდა იყოს ფაილი ტიპის: :values.',
     'mimetypes' => ':attribute უნდა იყოს ფაილი ტიპის: :values.',
     'min' => [
@@ -171,6 +171,17 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'სახელი',
+        'description' => 'აღწერა',
+        'due_date' => 'ვადა',
+        'priority' => 'პრიორიტეტი',
+        'completed' => 'დასრულებული',
+        'completed_at' => 'დასრულების თარიღი',
+        'name' => 'სახელი',
+        'email' => 'ელ.ფოსტა',
+        'password' => 'პაროლი',
+        'password_confirmation' => 'პაროლის დადასტურება',
+    ],
 
 ];

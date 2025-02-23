@@ -10,7 +10,7 @@ export default function NavLink({
         <Link
             {...props}
             className={
-                " flex items-center gap-2 pr-5 pl-3 py-4 border-b border-b-gray-300 border-l-8 dark:border-b-gray-900 border-gray-100 transition-colors duration-150 ease-in-out focus:outline-none last:border-b-0 shadow w-full " +
+                " flex items-center gap-2 pr-5 pl-3 py-4 border-b border-b-gray-300 border-l-8 dark:border-b-gray-900 border-gray-100ease-in-out focus:outline-none last:border-b-0 shadow w-full " +
                 (active
                     ? " font-bold bg-yellow-light dark:bg-yellow-dark border-l-yellow "
                     : " border-l-transparent") +

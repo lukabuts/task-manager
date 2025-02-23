@@ -93,6 +93,8 @@
     "task_form_page": {
         "due_date": "ვადა",
         "priority": "პრიორიტეტი",
+        "priorities": "პრიორიტეტები",
+        "select_priority": "აირჩიეთ",
         "name_of_task": "დავალების სახელი",
         "description": "აღწერა",
         "description_of_task": "დავალების აღწერა",
