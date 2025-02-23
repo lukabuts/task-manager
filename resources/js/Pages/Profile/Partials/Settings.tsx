@@ -1,18 +1,20 @@
-import { Link, router, useForm, usePage } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import SectionHeader from "./SectionHeader";
 import { ProfilePartialProps } from "@/types/global";
-import { useEffect } from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 
 const Settings = ({ className, translations }: ProfilePartialProps) => {
     const { user } = usePage().props.auth;
-    const { data, setData, patch } = useForm({ theme: user.theme });
 
-    useEffect(() => {
-        if (data.theme !== user.theme) {
-            patch(route("profile.theme"));
-        }
-    }, [data.theme]);
+    function setTheme(theme: "dark" | "light") {
+        router.patch(
+            route("profile.theme"),
+            {
+                theme,
+            },
+            { preserveScroll: true, preserveState: true }
+        );
+    }
 
     return (
         <section className={className}>
@@ -66,9 +68,7 @@ const Settings = ({ className, translations }: ProfilePartialProps) => {
                     <button
                         disabled={user.theme === "light"}
                         onClick={() => {
-                            router.patch(route("profile.theme"), {
-                                theme: "light",
-                            });
+                            setTheme("light");
                         }}
                     >
                         <SunIcon />
@@ -78,9 +78,9 @@ const Settings = ({ className, translations }: ProfilePartialProps) => {
                             type="checkbox"
                             id="dark-mode"
                             className="hidden"
+                            checked={user.theme === "dark"}
                             onChange={() => {
-                                setData(
-                                    "theme",
+                                setTheme(
                                     user.theme === "dark" ? "light" : "dark"
                                 );
                             }}
@@ -99,9 +99,7 @@ const Settings = ({ className, translations }: ProfilePartialProps) => {
                     <button
                         disabled={user.theme === "dark"}
                         onClick={() => {
-                            router.patch(route("profile.theme"), {
-                                theme: "dark",
-                            });
+                            setTheme("dark");
                         }}
                     >
                         <MoonIcon />

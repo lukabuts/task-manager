@@ -43,7 +43,8 @@ const Edit = ({ task }: { task: Task }) => {
                     processing ||
                     (data.description === task.description &&
                         data.due_date === task.due_date &&
-                        data.name === task.name) ||
+                        data.name === task.name &&
+                        data.priority === task.priority) ||
                     data.description.trim() === "" ||
                     data.due_date.trim() === "" ||
                     data.name.trim() === ""

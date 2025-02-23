@@ -72,9 +72,15 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
 
         history.replaceState({}, document.title, window.location.pathname);
 
-        window.addEventListener("resize", () => {
+        function handleResize() {
             setScreenWidth(window.innerWidth);
-        });
+        }
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     useEffect(() => {
@@ -87,7 +93,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
 
     return (
         <>
-            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 transition-colors">
+            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6">
                 {screenWidth >= xlScreen && (
                     <div className="relative col-span-1 max-xl:hidden">
                         <NavCard
@@ -104,7 +110,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                         >
                             <NavCard
                                 type="mobile"
-                                className={`fixed w-full max-w-80 animate-slideFromLeft h-dvh top-0 rounded-none xl:hidden ${
+                                className={`fixed w-full max-w-80 animate-slideFromLeft h-dvh top-0 rounded-none xl:hidden transition-all ${
                                     isMenuClosing ? "-left-96" : "left-0"
                                 }`}
                                 closeMenu={closeMenu}

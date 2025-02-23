@@ -115,6 +115,8 @@ type TranslationType = {
     task_form_page: {
         due_date: string;
         priority: string;
+        priorities: string;
+        select_priority: string;
         name_of_task: string;
         description: string;
         description_of_task: string;

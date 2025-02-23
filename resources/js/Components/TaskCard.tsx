@@ -1,11 +1,10 @@
 import { Task } from "@/types/global";
 import clsx from "clsx";
-import { format, isPast } from "date-fns";
+import { format } from "date-fns";
 import { CheckCircleIcon, Circle } from "lucide-react";
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 
 const TaskCard = ({ task }: { task: Task }) => {
-    const { put } = useForm();
     const { translations } = usePage().props;
     const isOverdue =
         (task.completed &&
@@ -59,10 +58,14 @@ const TaskCard = ({ task }: { task: Task }) => {
                 onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    put(route("task.complete", task.id), {
-                        preserveScroll: true,
-                        preserveState: true,
-                    });
+                    router.put(
+                        route("task.complete", task.id),
+                        {},
+                        {
+                            preserveScroll: true,
+                            preserveState: true,
+                        }
+                    );
                 }}
             >
                 {task.completed ? (

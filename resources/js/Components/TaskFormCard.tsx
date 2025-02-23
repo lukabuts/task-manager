@@ -1,13 +1,21 @@
-import { FlagIcon, PlusIcon, TimerIcon } from "lucide-react";
-import { format, isBefore, set } from "date-fns";
+import { FileCheck, FlagIcon, TimerIcon } from "lucide-react";
+import { format } from "date-fns";
 import InputError from "@/Components/InputError";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
-import CheckedFileIcon from "@/Icons/CheckedFileIcon";
 
-import { useEffect, useState } from "react";
 import { TaskFormCardProps } from "@/types/global";
 import { usePage } from "@inertiajs/react";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/Components/ui/select";
+import { Textarea } from "@/Components/ui/textarea";
 
 const TaskFormCard = ({
     handleSubmit,
@@ -18,16 +26,10 @@ const TaskFormCard = ({
     disabled,
 }: TaskFormCardProps) => {
     const { translations } = usePage().props;
-    const priorityDivClass =
-        "flex items-center gap-2 lg:px-4 lg:py-2 py-1 px-2 rounded-lg max-lg:text-sm font-medium transition-colors w-fit";
-    const [selectedPriority, setSelectedPriority] = useState<
-        "low" | "medium" | "high"
-    >("low");
-    const [showSelectPriority, setShowSelectPriority] = useState(false);
 
-    useEffect(() => {
-        setData("priority", selectedPriority);
-    }, [selectedPriority]);
+    function selectPriority(priority: "low" | "medium" | "high") {
+        setData("priority", priority);
+    }
 
     return (
         <form
@@ -35,11 +37,11 @@ const TaskFormCard = ({
                 if (disabled) return;
                 handleSubmit(e);
             }}
-            className="text-gray-900 dark:text-gray-100 text-s w-full div-container sm:p-4"
+            className="text-gray-900 dark:text-gray-100 text-sm md:text-base w-full div-container sm:p-4"
         >
-            <div className="flex gap-4 lg:gap-6 w-full border-b p-4 ">
+            <div className="flex gap-4 lg:gap-6 w-full border-b dark:border-gray-700 p-4 ">
                 <div>
-                    <CheckedFileIcon className="size-8" />
+                    <FileCheck className="size-8" />
                 </div>
                 <div className="w-full">
                     <Input
@@ -91,60 +93,53 @@ const TaskFormCard = ({
                                     {translations.task_form_page.priority}
                                 </span>
                             </div>
-                            <div
-                                className={`flex items-center gap-2 rounded-lg font-medium transition-colors w-fit h-10 cursor-pointer`}
+
+                            <Select
+                                value={data.priority}
+                                onValueChange={(e) => {
+                                    selectPriority(
+                                        e as "low" | "medium" | "high"
+                                    );
+                                }}
                             >
-                                <div className="flex items-center gap-2">
-                                    <div
-                                        className={`${
-                                            data.priority === "low" ||
-                                            showSelectPriority
-                                                ? ""
-                                                : "hidden"
-                                        } bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800 ${priorityDivClass}`}
-                                        onClick={() => {
-                                            setSelectedPriority("low");
-                                            setShowSelectPriority(
-                                                (prev) => !prev
-                                            );
-                                        }}
-                                    >
-                                        {translations.task_priority.low}
-                                    </div>
-                                    <div
-                                        className={`${
-                                            data.priority === "medium" ||
-                                            showSelectPriority
-                                                ? ""
-                                                : "hidden"
-                                        } bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300 hover:bg-yellow-200 dark:hover:bg-yellow-800 ${priorityDivClass}`}
-                                        onClick={() => {
-                                            setSelectedPriority("medium");
-                                            setShowSelectPriority(
-                                                (prev) => !prev
-                                            );
-                                        }}
-                                    >
-                                        {translations.task_priority.medium}
-                                    </div>
-                                    <div
-                                        className={`${
-                                            data.priority === "high" ||
-                                            showSelectPriority
-                                                ? ""
-                                                : "hidden"
-                                        } bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-800 ${priorityDivClass}`}
-                                        onClick={() => {
-                                            setSelectedPriority("high");
-                                            setShowSelectPriority(
-                                                (prev) => !prev
-                                            );
-                                        }}
-                                    >
-                                        {translations.task_priority.high}
-                                    </div>
-                                </div>
-                            </div>
+                                <SelectTrigger
+                                    className={`${
+                                        data.priority === "low"
+                                            ? "bg-green-100 dark:bg-green-900"
+                                            : data.priority === "medium"
+                                            ? "bg-yellow-100 dark:bg-yellow-900"
+                                            : data.priority === "high"
+                                            ? "bg-red-100 dark:bg-red-900"
+                                            : "dark:bg-gray-900 bg-gray-100"
+                                    } w-[180px] dark:border-gray-700`}
+                                >
+                                    <SelectValue
+                                        placeholder={
+                                            translations.task_form_page
+                                                .select_priority
+                                        }
+                                    />
+                                </SelectTrigger>
+                                <SelectContent className="dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
+                                    <SelectGroup>
+                                        <SelectLabel>
+                                            {
+                                                translations.task_form_page
+                                                    .priorities
+                                            }
+                                        </SelectLabel>
+                                        <SelectItem value="low">
+                                            {translations.task_priority.low}
+                                        </SelectItem>
+                                        <SelectItem value="medium">
+                                            {translations.task_priority.medium}
+                                        </SelectItem>
+                                        <SelectItem value="high">
+                                            {translations.task_priority.high}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                             <div>
                                 <InputError message={errors.priority} />
                             </div>
@@ -152,13 +147,13 @@ const TaskFormCard = ({
                     </div>
                 </div>
             </div>
-            <div className="p-4  border-b pt-0 lg:pt-0">
+            <div className="p-4  border-b dark:border-gray-700 pt-0 lg:pt-0">
                 <label htmlFor="description">
                     {translations.task_form_page.description}
                 </label>
-                <textarea
+                <Textarea
                     id="description"
-                    className="dark:bg-gray-900 shadow rounded-lg bg-gray-100 outline-none focus:outline-none w-full text-gray-900 dark:text-gray-100 mt-4 ld:mt-6 max-h-40 min-h-32 border border-input"
+                    className="dark:bg-gray-900 rounded-lg bg-gray-100 text-gray-900 dark:text-gray-100 mt-4 ld:mt-6 max-h-52 min-h-32 dark:bordzer-gray-700"
                     placeholder={
                         translations.task_form_page.description_of_task
                     }

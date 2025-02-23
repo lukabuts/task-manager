@@ -12,7 +12,6 @@ import {
 
 export default function Guest({ children }: PropsWithChildren) {
     const { translations, locale } = usePage().props;
-    console.log(locale);
     function changeLocale(locale: "en" | "ka") {
         router.get(route("locale.update", locale));
     }
@@ -65,10 +64,10 @@ export default function Guest({ children }: PropsWithChildren) {
                         }
                     }}
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] dark:border-gray-700">
                         <SelectValue placeholder="Select Language" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-gray-100 dark:bg-gray-900 dark:border-gray-700">
                         <SelectGroup>
                             <SelectLabel>Languages</SelectLabel>
                             <SelectItem value="ka">

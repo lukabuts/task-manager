@@ -80,10 +80,10 @@ interface ModalPopupProps {
 interface TaskFormCardProps {
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
     data: {
-        name: string;
-        due_date: string;
-        priority: string;
-        description: string;
+        name?: string;
+        due_date?: string;
+        priority?: string;
+        description?: string;
     };
     setData: (field: string, value: any) => void;
     errors: {

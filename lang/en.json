@@ -92,6 +92,8 @@
     "task_form_page": {
         "due_date": "Due Date",
         "priority": "Priority",
+        "priorities": "Priorities",
+        "select_priority": "Select a priority",
         "name_of_task": "Name of Task",
         "description": "Description",
         "description_of_task": "Description of Task",
