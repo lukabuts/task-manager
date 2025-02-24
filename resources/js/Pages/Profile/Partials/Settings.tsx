@@ -2,9 +2,15 @@ import { Link, router, usePage } from "@inertiajs/react";
 import SectionHeader from "./SectionHeader";
 import { ProfilePartialProps } from "@/types/global";
 import { MoonIcon, SunIcon } from "lucide-react";
+import { memo } from "react";
 
 const Settings = ({ className, translations }: ProfilePartialProps) => {
     const { user } = usePage().props.auth;
+    const userPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+    ).matches;
+    const isDarkModeOn =
+        user.theme === "dark" || (user.theme === "system" && userPrefersDark);
 
     function setTheme(theme: "dark" | "light") {
         router.patch(
@@ -78,7 +84,7 @@ const Settings = ({ className, translations }: ProfilePartialProps) => {
                             type="checkbox"
                             id="dark-mode"
                             className="hidden"
-                            checked={user.theme === "dark"}
+                            checked={isDarkModeOn}
                             onChange={() => {
                                 setTheme(
                                     user.theme === "dark" ? "light" : "dark"
@@ -91,7 +97,7 @@ const Settings = ({ className, translations }: ProfilePartialProps) => {
                         >
                             <span
                                 className={`${
-                                    user.theme === "dark" ? "left-8" : " left-1"
+                                    isDarkModeOn ? "left-8" : " left-1"
                                 } absolute top-1 w-5 h-5 bg-white dark:bg-gray-300 rounded-full transition-all shadow-md peer-checked:left-8`}
                             ></span>
                         </label>
@@ -110,4 +116,4 @@ const Settings = ({ className, translations }: ProfilePartialProps) => {
     );
 };
 
-export default Settings;
+export default memo(Settings);

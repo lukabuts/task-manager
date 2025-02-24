@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import InputError from "@/Components/InputError";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
-
 import { TaskFormCardProps } from "@/types/global";
 import { usePage } from "@inertiajs/react";
 import {
@@ -16,6 +15,7 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 import { Textarea } from "@/Components/ui/textarea";
+import { memo } from "react";
 
 const TaskFormCard = ({
     handleSubmit,
@@ -72,7 +72,7 @@ const TaskFormCard = ({
                         >
                             <Input
                                 type="date"
-                                className="w-fit"
+                                className="min-w-36"
                                 value={data.due_date?.split(" ")[0] || ""}
                                 onChange={(e) => {
                                     setData("due_date", e.target.value);
@@ -158,9 +158,9 @@ const TaskFormCard = ({
                         translations.task_form_page.description_of_task
                     }
                     onChange={(e) => setData("description", e.target.value)}
-                    value={data.description || ""}
+                    value={data.description}
                 />
-                <InputError message={errors.description} />
+                <InputError message={errors.description} className="mt-2" />
             </div>
             <div className="p-4 flex justify-end gap-4">
                 <Button
@@ -182,4 +182,4 @@ const TaskFormCard = ({
     );
 };
 
-export default TaskFormCard;
+export default memo(TaskFormCard);

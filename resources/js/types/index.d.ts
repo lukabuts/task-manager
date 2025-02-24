@@ -7,7 +7,7 @@ export interface User {
     email: string;
     email_verified_at?: string;
     photo?: string;
-    theme?: "light" | "dark";
+    theme: "light" | "dark" | "system";
 }
 
 export type PageProps<

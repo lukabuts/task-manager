@@ -1,18 +1,16 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Transition } from "@headlessui/react";
-import { useForm, usePage } from "@inertiajs/react";
-import { FormEventHandler, useRef } from "react";
+import { useForm } from "@inertiajs/react";
+import { FormEventHandler, memo, useRef } from "react";
 import SectionHeader from "./SectionHeader";
 import SubmitFormBtn from "./SubmitFormBtn";
 import { ProfilePartialProps } from "@/types/global";
 
-export default function UpdatePasswordForm({
+const UpdatePasswordForm = ({
     className = "",
     translations,
-}: ProfilePartialProps) {
+}: ProfilePartialProps) => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
     const {
@@ -145,4 +143,5 @@ export default function UpdatePasswordForm({
             </form>
         </section>
     );
-}
+};
+export default memo(UpdatePasswordForm);

@@ -7,6 +7,7 @@ import {
     Settings,
     XIcon,
 } from "lucide-react";
+import { memo } from "react";
 
 const NavCard = ({
     className,
@@ -89,4 +90,4 @@ const NavCard = ({
     );
 };
 
-export default NavCard;
+export default memo(NavCard);

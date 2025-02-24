@@ -182,6 +182,7 @@ return [
         'email' => 'ელ.ფოსტა',
         'password' => 'პაროლი',
         'password_confirmation' => 'პაროლის დადასტურება',
+        'photo' => 'ფოტო',
     ],
 
 ];

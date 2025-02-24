@@ -60,16 +60,6 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     }
 
     useEffect(() => {
-        if (!user.theme) {
-            const userPrefersDark = window.matchMedia(
-                "(prefers-color-scheme: dark)"
-            ).matches;
-
-            router.patch(route("profile.theme"), {
-                theme: userPrefersDark ? "dark" : "light",
-            });
-        }
-
         history.replaceState({}, document.title, window.location.pathname);
 
         function handleResize() {
@@ -84,16 +74,21 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     }, []);
 
     useEffect(() => {
+        const userPrefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        ).matches;
         if (user.theme === "dark") {
             document.documentElement.classList.add("dark");
-        } else if ((user.theme = "light")) {
+        } else if (user.theme === "light") {
             document.documentElement.classList.remove("dark");
+        } else if (user.theme === "system" && userPrefersDark) {
+            document.documentElement.classList.add("dark");
         }
     }, [user.theme]);
 
     return (
         <>
-            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6">
+            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 overflow-hidden">
                 {screenWidth >= xlScreen && (
                     <div className="relative col-span-1 max-xl:hidden">
                         <NavCard

@@ -11,9 +11,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'edit')->name('profile.edit');
         Route::patch('/', 'update')->name('profile.update');
         Route::delete('/', 'destroy')->name('profile.destroy');
-        Route::post('/picture', 'updatePicture')->name('profile.picture');
         Route::patch('/theme', 'updateTheme')->name('profile.theme');
-        Route::delete('/picture', 'deletePicture')->name('profile.picture');
+        Route::post('/picture', 'updatePicture')->name('profile.picture.update');
+        Route::delete('/picture', 'deletePicture')->name('profile.picture.destroy');
     });
     // Tasks
     Route::controller(TaskController::class)->prefix('tasks')->group(function () {
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/{task}', 'show')->name('task.show');
             Route::get('/{task}/edit', 'edit')->name('task.edit');
             Route::patch('/{task}', 'update')->name('task.update');
-            Route::put('/{task}', 'complete')->name('task.complete');
+            Route::patch('/{task}/complete', 'complete')->name('task.complete');
             Route::delete('/{task}', 'destroy')->name('task.destroy');
         });
     });

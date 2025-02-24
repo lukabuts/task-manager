@@ -189,6 +189,16 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'name' => 'Name',
+        'description' => 'Description',
+        'due_date' => 'Due Date',
+        'priority' => 'Priority',
+        'completed' => 'Completed',
+        'completed_at' => 'Completed At',
+        'email' => 'Email',
+        'password' => 'Password',
+        'password_confirmation' => 'Password Confirmation',
+        'photo' => 'Photo',
+    ],
 ];

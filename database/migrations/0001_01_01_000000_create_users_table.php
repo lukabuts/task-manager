@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email')->unique();
             $table->string('locale')->default('en');
-            $table->enum('theme', ['dark', 'light'])->nullable();
+            $table->enum('theme', ['dark', 'light', 'system'])->default('system');
             $table->string('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

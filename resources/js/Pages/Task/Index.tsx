@@ -4,6 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PaginatedTasks } from "@/types/global";
 import { Head, router, usePage } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
 
 function Index({ tasks }: { tasks: PaginatedTasks }) {

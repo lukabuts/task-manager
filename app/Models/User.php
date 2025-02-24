@@ -13,6 +13,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    const TASK_LIMIT = 100;
     /**
      * The attributes that are mass assignable.
      *

@@ -18,7 +18,7 @@ const Show = ({ task }: { task: Task }) => {
     return (
         <AuthenticatedLayout>
             <Head title={task.name} />
-            <div className="div-container p-4">
+            <div className="div-container p-4 break-all">
                 {/* Back Button */}
                 <div className="flex items-center justify-between mb-4">
                     <Link
