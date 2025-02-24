@@ -4,12 +4,12 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Transition } from "@headlessui/react";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import { FormEventHandler } from "react";
+import { FormEventHandler, memo } from "react";
 import SectionHeader from "./SectionHeader";
 import SubmitFormBtn from "./SubmitFormBtn";
 import { ProfilePartialProps } from "@/types/global";
 
-export default function UpdateProfileInformation({
+const UpdateProfileInformation = ({
     mustVerifyEmail,
     status,
     className = "",
@@ -17,7 +17,7 @@ export default function UpdateProfileInformation({
 }: ProfilePartialProps & {
     mustVerifyEmail: boolean;
     status?: string;
-}) {
+}) => {
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
@@ -85,7 +85,7 @@ export default function UpdateProfileInformation({
                     <InputError className="mt-2" message={errors.email} />
                 </div>
 
-                {user.email_verified_at === null && (
+                {user.email_verified_at === null && mustVerifyEmail && (
                     <div>
                         <p className="mt-2 text-sm text-gray-800 dark:text-gray-200">
                             Your email address is unverified.{" "}
@@ -110,7 +110,8 @@ export default function UpdateProfileInformation({
 
                 <SubmitFormBtn
                     disabled={
-                        user.email === data.email && user.name === data.name
+                        user.email === data.email.trim() &&
+                        user.name === data.name.trim()
                     }
                     processing={processing}
                     recentlySuccessful={recentlySuccessful}
@@ -118,4 +119,5 @@ export default function UpdateProfileInformation({
             </form>
         </section>
     );
-}
+};
+export default memo(UpdateProfileInformation);

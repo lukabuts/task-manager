@@ -24,7 +24,7 @@ const DeleteProfilePicture = () => {
             <ModalPopup
                 onClick={() => {
                     closeModal();
-                    destroy(route("profile.picture"));
+                    destroy(route("profile.picture.destroy"));
                 }}
                 processing={processing}
                 show={confirmingUserDeletion}

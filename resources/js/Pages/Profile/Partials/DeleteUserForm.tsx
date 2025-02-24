@@ -4,15 +4,15 @@ import InputLabel from "@/Components/InputLabel";
 import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
-import { useForm, usePage } from "@inertiajs/react";
-import { FormEventHandler, useRef, useState } from "react";
+import { useForm } from "@inertiajs/react";
+import { FormEventHandler, memo, useRef, useState } from "react";
 import SectionHeader from "./SectionHeader";
 import { ProfilePartialProps } from "@/types/global";
 
-export default function DeleteUserForm({
+const DeleteUserForm = ({
     className = "",
     translations,
-}: ProfilePartialProps) {
+}: ProfilePartialProps) => {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
     const passwordInput = useRef<HTMLInputElement>(null);
     const {
@@ -124,4 +124,6 @@ export default function DeleteUserForm({
             </Modal>
         </section>
     );
-}
+};
+
+export default memo(DeleteUserForm);

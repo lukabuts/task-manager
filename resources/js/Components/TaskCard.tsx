@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { CheckCircleIcon, Circle } from "lucide-react";
 import { Link, router, usePage } from "@inertiajs/react";
+import { memo } from "react";
+import { TranslationType } from "@/types";
 
 const TaskCard = ({ task }: { task: Task }) => {
     const { translations } = usePage().props;
@@ -18,12 +20,14 @@ const TaskCard = ({ task }: { task: Task }) => {
         <Link
             href={route("task.show", task.id)}
             key={task.id}
-            className="flex items-center justify-between div-container p-4"
+            className="flex items-center justify-between div-container p-4 gap-2 break-all"
         >
             <div>
-                <h3 className="text-lg font-semibold">{task.name}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                    {task.description || "No description provided"}
+                <h3 className="text-lg font-semibold line-clamp-1">
+                    {task.name}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 text-wrap">
+                    {task.description}
                 </p>
                 <div className="flex items-center gap-2 mt-2 text-sm">
                     <span
@@ -58,7 +62,7 @@ const TaskCard = ({ task }: { task: Task }) => {
                 onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    router.put(
+                    router.patch(
                         route("task.complete", task.id),
                         {},
                         {

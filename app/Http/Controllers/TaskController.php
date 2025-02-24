@@ -42,6 +42,7 @@ class TaskController extends Controller
      */
     public function store(TaskStoreRequest $request): RedirectResponse
     {
+        $request->authenticate();
         $request->user()->tasks()->create($request->only('name', 'description', 'due_date', 'priority'));
 
         return Redirect::route('task.index')->with([

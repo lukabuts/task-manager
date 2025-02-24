@@ -6,12 +6,14 @@ import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
 import ProfilePhoto from "./Partials/ProfilePhoto";
 import Settings from "./Partials/Settings";
+import { useMemo } from "react";
 
 export default function Edit({
     mustVerifyEmail,
     status,
 }: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
     const { translations } = usePage().props;
+    const memoedTranslations = useMemo(() => translations, []);
     return (
         <AuthenticatedLayout>
             <Head title={translations.setting_page.title} />
@@ -20,13 +22,13 @@ export default function Edit({
                 <div className="div-container p-4">
                     <Settings
                         className="max-w-xl"
-                        translations={translations}
+                        translations={memoedTranslations}
                     />
                 </div>
                 <div className="div-container p-4">
                     <ProfilePhoto
                         className="max-w-xl"
-                        translations={translations}
+                        translations={memoedTranslations}
                     />
                 </div>
                 <div className="div-container p-4">
@@ -34,21 +36,21 @@ export default function Edit({
                         mustVerifyEmail={mustVerifyEmail}
                         status={status}
                         className="max-w-xl"
-                        translations={translations}
+                        translations={memoedTranslations}
                     />
                 </div>
 
                 <div className="div-container p-4">
                     <UpdatePasswordForm
                         className="max-w-xl"
-                        translations={translations}
+                        translations={memoedTranslations}
                     />
                 </div>
 
                 <div className="div-container p-4">
                     <DeleteUserForm
                         className="max-w-xl"
-                        translations={translations}
+                        translations={memoedTranslations}
                     />
                 </div>
             </div>

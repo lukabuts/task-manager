@@ -5,7 +5,7 @@ import { Button } from "@/Components/ui/button";
 import SubmitFormBtn from "./SubmitFormBtn";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import DeleteProfilePicture from "./DeleteProfilePicture";
 import { ProfilePartialProps } from "@/types/global";
 
@@ -29,7 +29,7 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
     function updateProfilePicture(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        post(route("profile.picture"), {
+        post(route("profile.picture.update"), {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
@@ -173,4 +173,4 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
     );
 };
 
-export default ProfilePhoto;
+export default memo(ProfilePhoto);
