@@ -18,7 +18,7 @@ const TaskCard = ({ task }: { task: Task }) => {
 
     return (
         <Link
-            href={route("task.show", task.id)}
+            href={route("tasks.show", task.id)}
             key={task.id}
             className="flex items-center justify-between div-container p-4 gap-2 break-all"
         >
@@ -63,7 +63,7 @@ const TaskCard = ({ task }: { task: Task }) => {
                     e.stopPropagation();
                     e.preventDefault();
                     router.patch(
-                        route("task.complete", task.id),
+                        route("tasks.complete", task.id),
                         {},
                         {
                             preserveScroll: true,

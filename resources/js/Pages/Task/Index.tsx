@@ -1,16 +1,16 @@
-import TaskCard from "@/Components/TaskCard";
-import { Button } from "@/Components/ui/button";
+import { TaskCard } from "./Partials";
+import { Button } from "@/Components/ui";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PaginatedTasks } from "@/types/global";
 import { Head, router, usePage } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
 
 function Index({ tasks }: { tasks: PaginatedTasks }) {
     const { translations } = usePage().props;
+    const created_at = route().params.created_at;
     function navigatePage(page: number) {
-        router.get(route("task.index", { page }));
+        router.get(route("tasks.index", { page, created_at }));
     }
     const page = Number(route().params.page);
     if (page && page > tasks.last_page) {

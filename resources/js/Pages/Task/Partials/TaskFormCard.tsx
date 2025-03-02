@@ -1,8 +1,6 @@
 import { FileCheck, FlagIcon, TimerIcon } from "lucide-react";
 import { format } from "date-fns";
 import InputError from "@/Components/InputError";
-import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
 import { TaskFormCardProps } from "@/types/global";
 import { usePage } from "@inertiajs/react";
 import {
@@ -13,8 +11,11 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/Components/ui/select";
-import { Textarea } from "@/Components/ui/textarea";
+    Textarea,
+    Button,
+    Input,
+} from "@/Components/ui";
+
 import { memo } from "react";
 
 const TaskFormCard = ({
@@ -34,6 +35,7 @@ const TaskFormCard = ({
     return (
         <form
             onSubmit={(e) => {
+                e.preventDefault();
                 if (disabled) return;
                 handleSubmit(e);
             }}

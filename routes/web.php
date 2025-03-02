@@ -6,7 +6,7 @@ use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-    Route::inertia('/', 'Dashboard')->name('dashboard');
+    Route::inertia('/', 'Dashboard/Index')->name('dashboard');
     Route::controller(ProfileController::class)->prefix('profile')->group(function () {
         Route::get('/', 'edit')->name('profile.edit');
         Route::patch('/', 'update')->name('profile.update');
@@ -17,16 +17,16 @@ Route::middleware('auth')->group(function () {
     });
     // Tasks
     Route::controller(TaskController::class)->prefix('tasks')->group(function () {
-        Route::get('/', 'index')->name('task.index');
-        Route::get('/create', 'create')->name('task.create');
-        Route::post('/', 'store')->name('task.store');
+        Route::get('/', 'index')->name('tasks.index');
+        Route::get('/create', 'create')->name('tasks.create');
+        Route::post('/', 'store')->name('tasks.store');
 
         Route::middleware('can:edit,task')->where(['id' => '[0-9]+'])->group(function () {
-            Route::get('/{task}', 'show')->name('task.show');
-            Route::get('/{task}/edit', 'edit')->name('task.edit');
-            Route::patch('/{task}', 'update')->name('task.update');
-            Route::patch('/{task}/complete', 'complete')->name('task.complete');
-            Route::delete('/{task}', 'destroy')->name('task.destroy');
+            Route::get('/{task}', 'show')->name('tasks.show');
+            Route::get('/{task}/edit', 'edit')->name('tasks.edit');
+            Route::patch('/{task}', 'update')->name('tasks.update');
+            Route::patch('/{task}/complete', 'complete')->name('tasks.complete');
+            Route::delete('/{task}', 'destroy')->name('tasks.destroy');
         });
     });
 });

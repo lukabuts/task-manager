@@ -15,16 +15,40 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index(Request $request): Response
     {
-        return Inertia::render(
-            'Task/Index',
-            [
-                'tasks' => $request->user()->tasks()->latest()->paginate(10),
-            ]
-        );
+        // Get the current user's tasks
+        $query = $request->user()->tasks()->latest();
 
+        // Apply filters
+        if ($request->has('completed')) {
+            $query->where('completed', filter_var($request->input('completed'), FILTER_VALIDATE_BOOLEAN));
+        }
+
+        if ($request->has('notCompleted')) {
+            $query->where('completed', false);
+        }
+
+        if ($request->has('priorities')) {
+            $query->whereIn('priority', $request->input('priorities'));
+        }
+
+        if ($request->has('from') && $request->has('to')) {
+            $query->whereBetween('created_at', [$request->input('from'), $request->input('to')]);
+        }
+
+        if ($request->has('search')) {
+            $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
+        }
+
+        // Paginate the results
+        $tasks = $query->paginate(10);
+
+
+        return Inertia::render('Task/Index', ['tasks' => $tasks, ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -45,7 +69,7 @@ class TaskController extends Controller
         $request->authenticate();
         $request->user()->tasks()->create($request->only('name', 'description', 'due_date', 'priority'));
 
-        return Redirect::route('task.index')->with([
+        return Redirect::route('tasks.index')->with([
             'message' => [
                 'type' => 'success',
                 'message' => trans('messages.type.success'),
@@ -92,7 +116,7 @@ class TaskController extends Controller
         if ($request->task->getChanges()) {
             $task->update(['completed' => false, 'completed_at' => null]);
         }
-        return Redirect::route('task.index')->with([
+        return Redirect::route('tasks.index')->with([
             'message' => [
                 'type' => 'success',
                 'message' => trans('messages.type.success'),
@@ -106,7 +130,7 @@ class TaskController extends Controller
     public function destroy(Task $task): RedirectResponse
     {
         $task->delete();
-        return Redirect::route('task.index')->with([
+        return Redirect::route('tasks.index')->with([
             'message' => [
                 'type' => 'success',
                 'message' => trans('messages.type.success'),

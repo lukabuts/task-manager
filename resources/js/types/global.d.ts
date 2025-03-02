@@ -2,6 +2,7 @@ import { PageProps as InertiaPageProps } from "@inertiajs/core";
 import { AxiosInstance } from "axios";
 import { route as ziggyRoute } from "ziggy-js";
 import { PageProps as AppPageProps, TranslationType } from "./";
+import { DateObject } from "react-multi-date-picker";
 
 declare global {
     interface Window {
@@ -107,3 +108,47 @@ type ProfilePartialProps = {
     className?: string;
     translations: TranslationType;
 };
+
+interface ICalendarProps {
+    setDate: (date: Date) => void;
+    date: Date | [Date, Date];
+    selectRange: boolean;
+    setSelectRange: (range: boolean) => void;
+}
+
+interface CalendarProps {
+    setDate: any;
+    date: any;
+    selectRange: boolean;
+}
+
+interface ActionProps {
+    setDate: any;
+    date: any;
+    selectRange: boolean;
+    setSelectRange: any;
+}
+
+interface Filters {
+    search?: string;
+    priorities?: Array<"low" | "medium" | "high" | "">;
+    date: {
+        from: string;
+        to: string;
+    };
+    completed: boolean;
+    notCompleted: boolean;
+}
+
+type FilterDate = {
+    from: Date | undefined;
+    to: Date | undefined;
+};
+
+interface SearchProps {
+    setIsSearchModalShown: (isSearchInputFocused: boolean) => void;
+    setFilters: (filters: Filters) => void;
+    filters: Filters;
+    hidden: boolean;
+    calendarRef: React.RefObject<HTMLDivElement>;
+}

@@ -1,23 +1,62 @@
 import { Link, router, usePage } from "@inertiajs/react";
-import { PropsWithChildren, useEffect, useState } from "react";
-import { Button } from "@/Components/ui/button";
+import { PropsWithChildren, useEffect, useMemo, useRef, useState } from "react";
 import { EditIcon, MenuIcon, PlusIcon, UserIcon } from "lucide-react";
-import { Input } from "@/Components/ui/input";
+import { Input, Button } from "@/Components/ui";
 import NotificationCard from "@/Components/NotificationCard";
 import { createPortal } from "react-dom";
 import NavCard from "@/Components/NavCard";
 import NavLink from "@/Components/NavLink";
+import { SearchModal } from "@/Components/SearchModal";
+import { Filters } from "@/types/global";
 
 export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     const { user } = usePage().props.auth;
-    const { flash } = usePage().props;
+    const { flash, translations, ziggy } = usePage().props;
+    const { url } = usePage();
     const [message, setMessage] = useState(flash.message || null);
     const [isMenuShown, setIsMenuShown] = useState(false);
     const [isMenuClosing, setIsMenuClosing] = useState(false);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-    const { translations } = usePage().props;
+    const [isSearchModalShown, setIsSearchModalShown] = useState(false);
+
+    const modalRef = useRef<HTMLDivElement>(null);
+    const calendarRef = useRef<HTMLDivElement>(null);
     const xlScreen = 1280;
     const smScreen = 640;
+    const initialFilters: Filters = useMemo(() => {
+        const filters = new URLSearchParams(
+            window.location.search
+        ) as Partial<Filters>;
+        return {
+            search: filters.search || "",
+            date: {
+                from: filters.date?.from || "",
+                to: filters.date?.to || "",
+            },
+            completed: String(filters.completed) === "true",
+            notCompleted: String(filters.notCompleted) === "true",
+            priorities: filters.priorities || [],
+        };
+    }, []);
+    const [filters, setFilters] = useState<Filters>(initialFilters);
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(event.target as Node) &&
+                ((calendarRef.current &&
+                    !calendarRef.current.contains(event.target as Node)) ||
+                    !calendarRef.current)
+            ) {
+                setIsSearchModalShown(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [setIsSearchModalShown]);
 
     useEffect(() => {
         const html = document.getElementsByTagName("html")[0];
@@ -88,7 +127,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
 
     return (
         <>
-            <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 overflow-hidden">
+            <div className="min-h-svh bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 overflow-hidden">
                 {screenWidth >= xlScreen && (
                     <div className="relative col-span-1 max-xl:hidden">
                         <NavCard
@@ -112,8 +151,8 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                             >
                                 {screenWidth < smScreen && (
                                     <NavLink
-                                        href={route("task.create")}
-                                        active={route().current("task.create")}
+                                        href={route("tasks.create")}
+                                        active={route().current("tasks.create")}
                                     >
                                         <EditIcon />
                                         <span>
@@ -129,9 +168,19 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                     </>
                 )}
                 <div className="col-span-5 space-y-6 z-10 max-xl:col-span-6">
-                    <header className="div-container p-4 flex items-center justify-between gap-4">
+                    <header
+                        className="div-container p-4 flex items-center justify-between gap-4 relative"
+                        ref={modalRef}
+                    >
                         <div className="w-full">
                             <Input
+                                onFocus={() => setIsSearchModalShown(true)}
+                                onChange={(e) => {
+                                    setFilters({
+                                        ...filters,
+                                        search: e.target.value.trim(),
+                                    });
+                                }}
                                 type="search"
                                 className="xl:w-72"
                                 placeholder={
@@ -142,7 +191,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                         <div className="flex items-center gap-4">
                             <Button
                                 onClick={() => {
-                                    router.get(route("task.create"));
+                                    router.get(route("tasks.create"));
                                 }}
                                 className="rounded-2xl max-sm:hidden"
                             >
@@ -178,6 +227,14 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                                 </button>
                             </div>
                         </div>
+
+                        <SearchModal
+                            setIsSearchModalShown={setIsSearchModalShown}
+                            hidden={!isSearchModalShown}
+                            filters={filters}
+                            setFilters={setFilters}
+                            calendarRef={calendarRef}
+                        />
                     </header>
                     <main>{children}</main>
                 </div>

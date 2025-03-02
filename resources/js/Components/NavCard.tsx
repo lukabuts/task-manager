@@ -59,8 +59,8 @@ const NavCard = ({
                         <span>{translations.layout.nav.dashboard}</span>
                     </NavLink>
                     <NavLink
-                        active={route().current("task.index")}
-                        href={route("task.index")}
+                        active={route().current("tasks.index")}
+                        href={route("tasks.index")}
                     >
                         <CircleCheck />
                         <span>{translations.layout.nav.my_tasks}</span>

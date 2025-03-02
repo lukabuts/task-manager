@@ -22,7 +22,7 @@ const Show = ({ task }: { task: Task }) => {
                 {/* Back Button */}
                 <div className="flex items-center justify-between mb-4">
                     <Link
-                        href={route("task.index")}
+                        href={route("tasks.index")}
                         className="flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                     >
                         <ArrowLeftIcon className="w-5 h-5 mr-2" />
@@ -47,12 +47,9 @@ const Show = ({ task }: { task: Task }) => {
                         className={clsx(
                             "inline-block px-3 py-1 rounded-md font-medium",
                             {
-                                "bg-green-100 text-green-700":
-                                    task.priority === "low",
-                                "bg-yellow-100 text-yellow-700":
-                                    task.priority === "medium",
-                                "bg-red-100 text-red-700":
-                                    task.priority === "high",
+                                "low-priority": task.priority === "low",
+                                "medium-priority": task.priority === "medium",
+                                "high-priority": task.priority === "high",
                             }
                         )}
                     >
@@ -94,7 +91,7 @@ const Show = ({ task }: { task: Task }) => {
                             {translations.task_page.delete}
                         </DangerButton>
                         <Link
-                            href={route("task.edit", task.id)}
+                            href={route("tasks.edit", task.id)}
                             className="flex items-center bg-yellow-dark hover:bg-yellow-dark/90 text-white px-4 py-1.5 rounded-md"
                         >
                             <EditIcon className="w-5 h-5 mr-2" />
@@ -107,7 +104,7 @@ const Show = ({ task }: { task: Task }) => {
             <ModalPopup
                 onClick={() => {
                     closeModal();
-                    destroy(route("task.destroy", task.id));
+                    destroy(route("tasks.destroy", task.id));
                 }}
                 processing={processing}
                 show={confirmingTaskDeletion}

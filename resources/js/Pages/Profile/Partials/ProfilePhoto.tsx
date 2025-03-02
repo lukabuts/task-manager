@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import SectionHeader from "./SectionHeader";
 import { PlusIcon, UserIcon } from "lucide-react";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui";
 import SubmitFormBtn from "./SubmitFormBtn";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
@@ -28,7 +28,7 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
 
     function updateProfilePicture(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-
+        if (data.photo === null) return;
         post(route("profile.picture.update"), {
             preserveScroll: true,
             onSuccess: () => {
@@ -53,14 +53,22 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
             ];
 
             if (file.size > 1048576) {
-                setImgError("The photo may not be greater than 1MB.");
+                setImgError(() => {
+                    if (user.locale === "ka") {
+                        return "ფაილის ზომა არ უნდა აღემატებოდეს 1MB-ს.";
+                    }
+                    return "File size should not exceed 1MB.";
+                });
                 return;
             }
 
             if (!allowedTypes.includes(file.type)) {
-                setImgError(
-                    "Invalid file type. Only JPEG, PNG, JPG, and WEBP are allowed."
-                );
+                setImgError(() => {
+                    if (user.locale === "ka") {
+                        return "ფაილის ტიპი არასწორია. დასაშვებია მხოლოდ JPEG, PNG, JPG და WEBP.";
+                    }
+                    return "Invalid file type. Only JPEG, PNG, JPG, and WEBP are allowed.";
+                });
                 return;
             }
             setData("photo", file);
@@ -145,11 +153,14 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
                         </div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">
                             <span>
-                                {
-                                    translations.setting_page.profile_photo
-                                        .supported_formats
-                                }
-                                : JPEG, PNG, JPG, {translations.and} WEBP <br />
+                                <span className="max-sm:hidden">
+                                    {
+                                        translations.setting_page.profile_photo
+                                            .supported_formats
+                                    }
+                                    :{" "}
+                                </span>
+                                JPEG, PNG, JPG, {translations.and} WEBP <br />
                                 {
                                     translations.setting_page.profile_photo
                                         .max_size

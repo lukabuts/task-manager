@@ -1,11 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Head, usePage } from "@inertiajs/react";
-import DeleteUserForm from "./Partials/DeleteUserForm";
-import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
-import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
-import ProfilePhoto from "./Partials/ProfilePhoto";
-import Settings from "./Partials/Settings";
+import {
+    DeleteUserForm,
+    UpdatePasswordForm,
+    UpdateProfileInformationForm,
+    ProfilePhoto,
+    Settings,
+} from "./Partials";
 import { useMemo } from "react";
 
 export default function Edit({

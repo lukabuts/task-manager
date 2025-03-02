@@ -22,7 +22,7 @@ const Edit = ({ task }: { task: Task }) => {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        patch(route("task.update", task.id), {
+        patch(route("tasks.update", task.id), {
             onSuccess: () => {
                 reset();
             },
