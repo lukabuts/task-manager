@@ -4,27 +4,49 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PaginatedTasks } from "@/types/global";
 import { Head, router, usePage } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
 function Index({ tasks }: { tasks: PaginatedTasks }) {
+    console.log("rendered");
     const { translations } = usePage().props;
-    const created_at = route().params.created_at;
-    function navigatePage(page: number) {
-        router.get(route("tasks.index", { page, created_at }));
-    }
-    const page = Number(route().params.page);
-    if (page && page > tasks.last_page) {
+    const { params } = route();
+
+    if (params.page && Number(params.page) > tasks.last_page) {
         navigatePage(tasks.last_page);
     }
+
+    function navigatePage(page: number) {
+        router.get(route("tasks.index", { ...params, page }));
+    }
+
+    useEffect(() => {
+        window.history.pushState({}, "", route("tasks.index", params));
+    }, []);
 
     return (
         <AuthenticatedLayout>
             <Head title={translations.my_tasks_page.title} />
             {tasks.total === 0 ? (
                 <div className="text-center sm:py-6 py-4">
-                    <p className="text-gray-600 dark:text-gray-400">
-                        {translations.my_tasks_page.no_task}
-                    </p>
+                    {Object.keys(params).length > 1 ? (
+                        <div>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                {translations.my_tasks_page.filter_no_results}
+                            </p>
+                            <Button
+                                variant="outline"
+                                onClick={() => router.get(route("tasks.index"))}
+                                className="mt-4"
+                            >
+                                {translations.my_tasks_page.clear_filters}
+                            </Button>
+                        </div>
+                    ) : (
+                        <p className="text-gray-600 dark:text-gray-400">
+                            {translations.my_tasks_page.no_task}
+                        </p>
+                    )}
                 </div>
             ) : (
                 <div>

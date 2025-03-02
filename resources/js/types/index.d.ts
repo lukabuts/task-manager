@@ -88,6 +88,8 @@ type TranslationType = {
         next: string;
         previous: string;
         no_task: string;
+        filter_no_results: string;
+        clear_filters: string;
         priority: {
             high: string;
             medium: string;

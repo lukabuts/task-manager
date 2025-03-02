@@ -61,6 +61,8 @@
         "next": "Next",
         "previous": "Previous",
         "no_task": "You have no task at the moment.",
+        "filter_no_results": "No tasks found.",
+        "clear_filters": "Clear Filters",
         "priority": {
             "high": "High",
             "medium": "Medium",

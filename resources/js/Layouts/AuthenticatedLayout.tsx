@@ -11,8 +11,8 @@ import { Filters } from "@/types/global";
 
 export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     const { user } = usePage().props.auth;
-    const { flash, translations, ziggy } = usePage().props;
-    const { url } = usePage();
+    const { flash, translations } = usePage().props;
+    const { params } = route();
     const [message, setMessage] = useState(flash.message || null);
     const [isMenuShown, setIsMenuShown] = useState(false);
     const [isMenuClosing, setIsMenuClosing] = useState(false);
@@ -24,18 +24,17 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
     const xlScreen = 1280;
     const smScreen = 640;
     const initialFilters: Filters = useMemo(() => {
-        const filters = new URLSearchParams(
-            window.location.search
-        ) as Partial<Filters>;
         return {
-            search: filters.search || "",
+            search: params.search || "",
             date: {
-                from: filters.date?.from || "",
-                to: filters.date?.to || "",
+                from: params.from || "",
+                to: params.to || "",
             },
-            completed: String(filters.completed) === "true",
-            notCompleted: String(filters.notCompleted) === "true",
-            priorities: filters.priorities || [],
+            completed: String(params.completed) === "true",
+            notCompleted: String(params.notCompleted) === "true",
+            priorities: Array.isArray(params.priorities)
+                ? params.priorities
+                : [],
         };
     }, []);
     const [filters, setFilters] = useState<Filters>(initialFilters);
