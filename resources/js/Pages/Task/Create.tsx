@@ -1,10 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Task } from "@/types/global";
 import { Head, useForm } from "@inertiajs/react";
-import { useEffect, useState } from "react";
-import TaskFormCard from "@/Components/TaskFormCard";
+import { TaskFormCard } from "./Partials";
 
-const Edit = ({ task }: { task: Task }) => {
+const Edit = () => {
     const { data, setData, errors, post, reset, processing } = useForm({
         name: "",
         description: "",
@@ -14,7 +12,7 @@ const Edit = ({ task }: { task: Task }) => {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        post(route("task.store"), {
+        post(route("tasks.store"), {
             onSuccess: () => {
                 reset();
             },

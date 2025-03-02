@@ -10,6 +10,24 @@
     .title {
         @apply sm:text-2xl text-xl font-semibold;
     }
+
+    .low-priority {
+        @apply inline-block px-3 py-1 rounded-md font-medium bg-green-100 text-green-700;
+    }
+
+    .medium-priority {
+        @apply inline-block px-3 py-1 rounded-md font-medium bg-yellow-100 text-yellow-700;
+    }
+
+    .high-priority {
+        @apply inline-block px-3 py-1 rounded-md font-medium bg-red-100 text-red-700;
+    }
+}
+
+@layer {
+    .dark .rmdp-day {
+        color: #d1d5db !important;
+    }
 }
 
 @layer base {
@@ -65,23 +83,5 @@
         --chart-3: 30 80% 55%;
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
-    }
-}
-
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
-}
-
-@layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
-    body {
-        @apply bg-background text-foreground;
     }
 }

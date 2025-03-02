@@ -8,6 +8,7 @@ export interface User {
     email_verified_at?: string;
     photo?: string;
     theme: "light" | "dark" | "system";
+    locale: "ka" | "en";
 }
 
 export type PageProps<

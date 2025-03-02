@@ -1,5 +1,5 @@
 import { router, usePage } from "@inertiajs/react";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import {
     Select,
     SelectContent,
@@ -8,7 +8,7 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/Components/ui/select";
+} from "@/Components/ui";
 
 export default function Guest({ children }: PropsWithChildren) {
     const { translations, locale } = usePage().props;
