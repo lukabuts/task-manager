@@ -189,9 +189,9 @@ const SearchModal = ({
                                     filters.priorities?.find(
                                         (p) => p === priority
                                     )
-                                        ? "border dark:border-gray-700"
-                                        : ""
-                                } ${priority}-priority`}
+                                        ? "opacity-100"
+                                        : "opacity-60"
+                                } ${priority}-priority `}
                                 onClick={() => addPriority(priority)}
                             >
                                 {priority}
