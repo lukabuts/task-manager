@@ -21,13 +21,13 @@ const Show = ({ task }: { task: Task }) => {
             <div className="div-container p-4 break-all">
                 {/* Back Button */}
                 <div className="flex items-center justify-between mb-4">
-                    <Link
-                        href={route("tasks.index")}
+                    <button
+                        onClick={() => window.history.back()}
                         className="flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                     >
                         <ArrowLeftIcon className="w-5 h-5 mr-2" />
                         {translations.task_page.back_to_tasks}
-                    </Link>
+                    </button>
 
                     {/* Edit Button */}
                 </div>
