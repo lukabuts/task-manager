@@ -47,6 +47,15 @@
             "search": "Search",
             "new_task": "New Task",
             "profile": "Profile"
+        },
+        "search_modal": {
+            "filter_by": "Filter by",
+            "completed": "Completed",
+            "not_completed": "Not Completed",
+            "upload_date": "Upload Date",
+            "pick_a_date": "Pick a date",
+            "priority": "Priority",
+            "filter": "Filter"
         }
     },
     "task_priority": {

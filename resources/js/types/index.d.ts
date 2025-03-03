@@ -75,6 +75,15 @@ type TranslationType = {
             new_task: string;
             profile: string;
         };
+        search_modal: {
+            filter_by: string;
+            completed: string;
+            not_completed: string;
+            upload_date: string;
+            pick_a_date: string;
+            priority: string;
+            filter: string;
+        }
     };
     task_priority: {
         high: string;

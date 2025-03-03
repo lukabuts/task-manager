@@ -1,8 +1,8 @@
 import { FilterDate, Filters, SearchProps } from "@/types/global";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import { format, formatDate } from "date-fns";
+import { format, formatDate, set } from "date-fns";
 import { useEffect, useState } from "react";
 import {
     Calendar,
@@ -19,10 +19,19 @@ const SearchModal = ({
     setFilters,
     calendarRef,
 }: SearchProps) => {
-    const [date, setDate] = useState<FilterDate | null>({
-        from: undefined,
-        to: undefined,
+    const { translations } = usePage().props;
+    const [show, setShow] = useState(false);
+    const [date, setDate] = useState<FilterDate | null>(() => {
+        const dt: FilterDate = {
+            from: undefined,
+            to: undefined,
+        };
+
+        filters.date?.from && (dt.from = new Date(filters.date.from));
+        filters.date?.to && (dt.to = new Date(filters.date.to));
+        return dt;
     });
+
     const priorities: Array<"low" | "medium" | "high"> = [
         "low",
         "medium",
@@ -55,16 +64,23 @@ const SearchModal = ({
         if (filters.notCompleted) {
             urlFilters["notCompleted"] = filters.notCompleted;
         }
-        if (filters.priorities) {
-            urlFilters["priorities"] = filters.priorities;
+        if ((filters.priorities || []).length > 0) {
+            const priorities = (filters.priorities || []).filter((p) =>
+                ["high", "medium", "low"].includes(p)
+            );
+            if (priorities.length > 0) {
+                urlFilters["priorities"] = priorities;
+            }
         }
         if (filters.completed && filters.notCompleted) {
             delete urlFilters["completed"];
             delete urlFilters["notCompleted"];
         }
-        if (filters.date?.from || filters.date?.to) {
-            urlFilters["to"] = filters.date.to;
+        if (filters.date?.from) {
             urlFilters["from"] = filters.date.from;
+        }
+        if (filters.date?.to) {
+            urlFilters["to"] = filters.date.to;
         }
         if (filters.search) {
             urlFilters["search"] = filters.search;
@@ -76,17 +92,26 @@ const SearchModal = ({
         });
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setShow(() => {
+                if (hidden) return false;
+                return true;
+            });
+        }, 150);
+    }, [hidden]);
+
     return (
         <div
             className={`absolute top-20 shadow-lg left-0 div-container w-full p-4 z-50 ${
-                hidden ? "hidden" : ""
-            }`}
+                hidden ? "animate-in" : ""
+            } ${!show ? "hidden" : ""}`}
         >
             <div className="flex flex-col gap-4">
-                <p> Filter by:</p>
+                <p>{translations.layout.search_modal.filter_by}:</p>
                 <div className="space-y-2 border-b dark:border-b-gray-700 pb-2">
                     <div className="flex items-center gap-4">
-                        <p>Completed</p>
+                        <p>{translations.layout.search_modal.completed}</p>
                         <Input
                             type="checkbox"
                             className="size-6"
@@ -100,7 +125,7 @@ const SearchModal = ({
                         />
                     </div>
                     <div className="flex items-center gap-4">
-                        <p>Not Completed</p>
+                        <p>{translations.layout.search_modal.not_completed}</p>
                         <Input
                             type="checkbox"
                             className="size-6"
@@ -117,7 +142,7 @@ const SearchModal = ({
                     </div>
                 </div>
                 <div className="space-y-2">
-                    <p>Upload Date:</p>
+                    <p>{translations.layout.search_modal.upload_date}:</p>
                     <div className="grid gap-2">
                         <Popover>
                             <PopoverTrigger asChild>
@@ -140,7 +165,12 @@ const SearchModal = ({
                                             format(date.from, "LLL dd, y")
                                         )
                                     ) : (
-                                        <span>Pick a date</span>
+                                        <span>
+                                            {
+                                                translations.layout.search_modal
+                                                    .pick_a_date
+                                            }
+                                        </span>
                                     )}
                                 </Button>
                             </PopoverTrigger>
@@ -173,14 +203,14 @@ const SearchModal = ({
                                         )
                                     }
                                     toDate={new Date()}
-                                    numberOfMonths={2}
+                                    numberOfMonths={1}
                                 />
                             </PopoverContent>
                         </Popover>
                     </div>
                 </div>
                 <div className="space-y-2">
-                    <p>Priority:</p>
+                    <p>{translations.layout.search_modal.priority}:</p>
                     <div className="flex gap-4">
                         {priorities.map((priority) => (
                             <button
@@ -194,7 +224,7 @@ const SearchModal = ({
                                 } ${priority}-priority `}
                                 onClick={() => addPriority(priority)}
                             >
-                                {priority}
+                                {translations.task_priority[priority]}
                             </button>
                         ))}
                     </div>
@@ -204,7 +234,7 @@ const SearchModal = ({
                     variant="outline"
                     className="w-fit ml-auto"
                 >
-                    Filter
+                    {translations.layout.search_modal.filter}
                 </Button>
             </div>
         </div>

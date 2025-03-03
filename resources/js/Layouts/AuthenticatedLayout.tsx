@@ -180,6 +180,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                                         search: e.target.value.trim(),
                                     });
                                 }}
+                                value={filters.search}
                                 type="search"
                                 className="xl:w-72"
                                 placeholder={
