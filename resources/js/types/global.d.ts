@@ -152,3 +152,25 @@ interface SearchProps {
     hidden: boolean;
     calendarRef: React.RefObject<HTMLDivElement>;
 }
+
+interface FilterCardProps {
+    isFilterApplied: boolean;
+    params: {
+        search?: string;
+        completed?: boolean;
+        notCompleted?: boolean;
+        from?: string;
+        to?: string;
+        priorities?: string[];
+    };
+    updateParams: (param: string) => void;
+    my_tasks_page: {
+        title: string;
+        total: string;
+    };
+    total: number;
+}
+
+interface Params {
+    [key: string]: any;
+}
