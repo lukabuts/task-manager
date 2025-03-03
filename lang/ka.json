@@ -48,6 +48,15 @@
             "search": "ძებნა",
             "new_task": "ახალი დავალება",
             "profile": "პროფილი"
+        },
+        "search_modal": {
+            "filter_by": "ფილტრები",
+            "completed": "დასრულებული",
+            "not_completed": "დაუსრულებელი",
+            "upload_date": "ატვირთვის თარიღი",
+            "pick_a_date": "აირჩიეთ თარიღი",
+            "priority": "პრიორიტეტი",
+            "filter": "გაფილტვრა"
         }
     },
     "task_priority": {

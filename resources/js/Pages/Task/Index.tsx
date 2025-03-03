@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
 function Index({ tasks }: { tasks: PaginatedTasks }) {
-    console.log("rendered");
     const { translations } = usePage().props;
     const { params } = route();
 
