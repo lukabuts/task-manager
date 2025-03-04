@@ -48,6 +48,7 @@ const FilterCard = ({
                         <FilterWrapper
                             onClick={() => {
                                 updateParams("from");
+                                updateParams("to");
                             }}
                         >
                             {params.from.split("-").join("/")} -{" "}

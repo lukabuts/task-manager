@@ -38,7 +38,7 @@ const NavCard = ({
                             className="flex items-center gap-2"
                         >
                             <img
-                                src="/images/logo.jpg"
+                                src="/images/logo.png"
                                 alt="logo"
                                 className="size-10 rounded-full border-2 border-black dark:border-white"
                             />

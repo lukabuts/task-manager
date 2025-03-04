@@ -39,13 +39,13 @@ export default function Guest({ children }: PropsWithChildren) {
             </div>
 
             <div className="w-full sm:max-w-md overflow-hidden">
-                <div className="flex flex-col items-center gap-5">
+                <div className="flex flex-col items-center gap-5 max-sm:hidden">
                     <img
-                        src="/images/logo.jpg"
+                        src="/images/logo.png"
                         alt="Logo"
                         className="size-28 rounded-full border-2 border-black dark:border-white"
                     />
-                    <h1 className="text-xl text-center max-sm:hidden text-gray-600 dark:text-gray-400">
+                    <h1 className="text-xl text-center text-gray-600 dark:text-gray-400">
                         {translations.auth.welcome}
                     </h1>
                 </div>
