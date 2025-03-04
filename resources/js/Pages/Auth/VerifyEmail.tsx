@@ -1,5 +1,5 @@
 import PrimaryButton from "@/Components/PrimaryButton";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
@@ -14,7 +14,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
     };
 
     return (
-        <GuestLayout>
+        <AuthenticatedLayout>
             <Head title={translations.auth.verify_email.title} />
 
             <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
@@ -43,6 +43,6 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     </Link>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

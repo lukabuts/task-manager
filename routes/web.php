@@ -33,5 +33,4 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/locale/{lang}', [LocaleController::class, 'setLocale'])->where('lang', 'en|ka')->name('locale.update');
 
-
 require __DIR__.'/auth.php';
