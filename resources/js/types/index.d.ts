@@ -58,8 +58,7 @@ type TranslationType = {
         verify_email: {
             title: string;
             description: string;
-            resend: string;
-            log_out: string;
+            send: string;
             success: string;
         };
     };
@@ -83,7 +82,7 @@ type TranslationType = {
             pick_a_date: string;
             priority: string;
             filter: string;
-        }
+        };
     };
     task_priority: {
         high: string;

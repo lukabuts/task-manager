@@ -1,8 +1,6 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Transition } from "@headlessui/react";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler, memo } from "react";
 import SectionHeader from "./SectionHeader";
@@ -10,7 +8,6 @@ import SubmitFormBtn from "./SubmitFormBtn";
 import { ProfilePartialProps } from "@/types/global";
 
 const UpdateProfileInformation = ({
-    mustVerifyEmail,
     status,
     className = "",
     translations,
@@ -85,7 +82,7 @@ const UpdateProfileInformation = ({
                     <InputError className="mt-2" message={errors.email} />
                 </div>
 
-                {user.email_verified_at === null && mustVerifyEmail && (
+                {user.email_verified_at === null && (
                     <div>
                         <p className="mt-2 text-sm text-gray-800 dark:text-gray-200">
                             Your email address is unverified.{" "}
