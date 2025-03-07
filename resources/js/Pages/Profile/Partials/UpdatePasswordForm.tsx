@@ -2,15 +2,16 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
-import { FormEventHandler, memo, useRef } from "react";
-import SectionHeader from "./SectionHeader";
-import SubmitFormBtn from "./SubmitFormBtn";
+import { FormEventHandler, memo, useRef, useState } from "react";
 import { ProfilePartialProps } from "@/types/global";
+import { SectionHeader, FormWrapper, SubmitFormBtn } from "./";
+import { EditIcon } from "lucide-react";
 
 const UpdatePasswordForm = ({
     className = "",
     translations,
 }: ProfilePartialProps) => {
+    const [editing, setEditing] = useState(false);
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
     const {
@@ -54,8 +55,12 @@ const UpdatePasswordForm = ({
                 description={
                     translations.setting_page.update_password.description
                 }
-            />
-            <form onSubmit={updatePassword} className="mt-6 space-y-6">
+            >
+                <button onClick={() => setEditing(true)}>
+                    <EditIcon />
+                </button>
+            </SectionHeader>
+            <FormWrapper onSubmit={updatePassword}>
                 <div>
                     <InputLabel
                         htmlFor="current_password"
@@ -75,6 +80,8 @@ const UpdatePasswordForm = ({
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="current-password"
+                        disabled={!editing}
+                        isFocused={editing}
                     />
 
                     <InputError
@@ -100,6 +107,7 @@ const UpdatePasswordForm = ({
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        disabled={!editing || processing}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -123,6 +131,7 @@ const UpdatePasswordForm = ({
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        disabled={!editing || processing}
                     />
 
                     <InputError
@@ -135,12 +144,12 @@ const UpdatePasswordForm = ({
                     disabled={
                         data.current_password === "" ||
                         data.password === "" ||
-                        data.password_confirmation === ""
+                        data.password_confirmation === "" ||
+                        processing
                     }
-                    processing={processing}
                     recentlySuccessful={recentlySuccessful}
                 />
-            </form>
+            </FormWrapper>
         </section>
     );
 };

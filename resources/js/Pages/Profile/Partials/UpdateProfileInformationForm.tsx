@@ -2,10 +2,10 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import { FormEventHandler, memo } from "react";
-import SectionHeader from "./SectionHeader";
-import SubmitFormBtn from "./SubmitFormBtn";
+import { FormEventHandler, memo, useState } from "react";
 import { ProfilePartialProps } from "@/types/global";
+import { EditIcon } from "lucide-react";
+import { SectionHeader, FormWrapper, SubmitFormBtn } from "./";
 
 const UpdateProfileInformation = ({
     status,
@@ -16,6 +16,7 @@ const UpdateProfileInformation = ({
     status?: string;
 }) => {
     const user = usePage().props.auth.user;
+    const [editing, setEditing] = useState(false);
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
@@ -36,9 +37,13 @@ const UpdateProfileInformation = ({
                 description={
                     translations.setting_page.profile_information.description
                 }
-            />
+            >
+                <button onClick={() => setEditing(true)}>
+                    <EditIcon />
+                </button>
+            </SectionHeader>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
+            <FormWrapper onSubmit={submit}>
                 <div>
                     <InputLabel
                         htmlFor="name"
@@ -55,6 +60,8 @@ const UpdateProfileInformation = ({
                         required
                         autoComplete="name"
                         spellCheck="false"
+                        disabled={!editing || processing}
+                        isFocused={editing}
                     />
 
                     <InputError className="mt-2" message={errors.name} />
@@ -77,6 +84,7 @@ const UpdateProfileInformation = ({
                         required
                         autoComplete="email"
                         spellCheck="false"
+                        disabled={!editing || processing}
                     />
 
                     <InputError className="mt-2" message={errors.email} />
@@ -107,13 +115,15 @@ const UpdateProfileInformation = ({
 
                 <SubmitFormBtn
                     disabled={
-                        user.email === data.email.trim() &&
-                        user.name === data.name.trim()
+                        data.email.trim() === "" ||
+                        data.name.trim() === "" ||
+                        (user.email === data.email.trim() &&
+                            user.name === data.name.trim()) ||
+                        processing
                     }
-                    processing={processing}
                     recentlySuccessful={recentlySuccessful}
                 />
-            </form>
+            </FormWrapper>
         </section>
     );
 };

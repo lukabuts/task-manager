@@ -1,13 +1,12 @@
 import { useForm, usePage } from "@inertiajs/react";
-import SectionHeader from "./SectionHeader";
 import { PlusIcon, UserIcon } from "lucide-react";
 import { Button } from "@/Components/ui";
-import SubmitFormBtn from "./SubmitFormBtn";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import { memo, useRef, useState } from "react";
 import DeleteProfilePicture from "./DeleteProfilePicture";
 import { ProfilePartialProps } from "@/types/global";
+import { SectionHeader, FormWrapper, SubmitFormBtn } from "./";
 
 const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
     const user = usePage().props.auth.user;
@@ -89,7 +88,7 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
                     translations.setting_page.profile_photo.description
                 }
             />
-            <form onSubmit={updateProfilePicture}>
+            <FormWrapper onSubmit={updateProfilePicture}>
                 <div className="flex lg:gap-6 gap-4 items-center my-4 lg:my-6">
                     <div className="size-40 max-xl:size-32 shrink-0 border dark:border-gray-700 rounded-2xl overflow-hidden">
                         {previewImage ? (
@@ -179,7 +178,7 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
                     />
                     {user.photo && <DeleteProfilePicture />}
                 </div>
-            </form>
+            </FormWrapper>
         </section>
     );
 };

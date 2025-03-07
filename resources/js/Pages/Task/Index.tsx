@@ -3,6 +3,7 @@ import { Button } from "@/Components/ui";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PaginatedTasks, Params } from "@/types/global";
 import { Head, router, usePage } from "@inertiajs/react";
+import { PlusIcon } from "lucide-react";
 import { useEffect } from "react";
 
 function Index({ tasks }: { tasks: PaginatedTasks }) {
@@ -36,6 +37,15 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
                     <p className="text-gray-600 dark:text-gray-400 text-nowrap">
                         {translations.my_tasks_page.no_task}
                     </p>
+                    <Button
+                        onClick={() => {
+                            router.get(route("tasks.create"));
+                        }}
+                        className="rounded-2xl sm:hidden mt-5"
+                    >
+                        <PlusIcon />
+                        <span>{translations.layout.header.new_task}</span>
+                    </Button>
                 </div>
             ) : (
                 <>
