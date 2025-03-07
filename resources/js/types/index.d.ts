@@ -92,6 +92,9 @@ type TranslationType = {
     my_tasks_page: {
         title: string;
         total: string;
+        not_completed: string;
+        completed: string;
+        today: string;
         due: string;
         next: string;
         previous: string;

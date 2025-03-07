@@ -56,6 +56,7 @@ function Index({ tasks }: { tasks: PaginatedTasks }) {
                             updateParams={updateParams}
                             my_tasks_page={translations.my_tasks_page}
                             total={tasks.total}
+                            task_priority={translations.task_priority}
                         />
                         <div className="grid gap-4">
                             {tasks.data.map((task) => (

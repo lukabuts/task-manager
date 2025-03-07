@@ -167,8 +167,16 @@ interface FilterCardProps {
     my_tasks_page: {
         title: string;
         total: string;
+        not_completed: string;
+        completed: string;
+        today: string;
     };
     total: number;
+    task_priority: {
+        low: string;
+        medium: string;
+        high: string;
+    };
 }
 
 interface Params {

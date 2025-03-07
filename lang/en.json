@@ -65,6 +65,9 @@
     "my_tasks_page": {
         "title": "My Tasks",
         "total": "Total",
+        "completed": "Completed",
+        "not_completed": "Not Completed",
+        "today": "Today",
         "due": "Due",
         "next": "Next",
         "previous": "Previous",
