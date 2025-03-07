@@ -3,11 +3,9 @@ import { Transition } from "@headlessui/react";
 import { usePage } from "@inertiajs/react";
 
 const SubmitFormBtn = ({
-    processing,
     recentlySuccessful,
     disabled = false,
 }: {
-    processing: boolean;
     recentlySuccessful: boolean;
     disabled?: boolean;
 }) => {
@@ -15,7 +13,7 @@ const SubmitFormBtn = ({
 
     return (
         <div className="flex items-center gap-4">
-            <PrimaryButton disabled={processing || disabled}>
+            <PrimaryButton disabled={disabled}>
                 {translations.save}
             </PrimaryButton>
 

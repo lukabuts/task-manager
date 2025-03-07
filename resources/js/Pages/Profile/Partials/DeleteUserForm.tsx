@@ -6,7 +6,7 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 import { FormEventHandler, memo, useRef, useState } from "react";
-import SectionHeader from "./SectionHeader";
+import { SectionHeader } from "./";
 import { ProfilePartialProps } from "@/types/global";
 
 const DeleteUserForm = ({

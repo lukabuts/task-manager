@@ -20,41 +20,30 @@ export default function Edit({
         <AuthenticatedLayout>
             <Head title={translations.setting_page.title} />
 
-            <div className="mx-auto space-y-6 ">
-                <div className="div-container p-4">
-                    <Settings
-                        className="max-w-xl"
-                        translations={memoedTranslations}
-                    />
-                </div>
-                <div className="div-container p-4">
-                    <ProfilePhoto
-                        className="max-w-xl"
-                        translations={memoedTranslations}
-                    />
-                </div>
-                <div className="div-container p-4">
-                    <UpdateProfileInformationForm
-                        mustVerifyEmail={mustVerifyEmail}
-                        status={status}
-                        className="max-w-xl"
-                        translations={memoedTranslations}
-                    />
-                </div>
+            <div className="mx-auto space-y-6">
+                <Settings
+                    translations={memoedTranslations}
+                    className="div-container p-4"
+                />
 
-                <div className="div-container p-4">
-                    <UpdatePasswordForm
-                        className="max-w-xl"
-                        translations={memoedTranslations}
-                    />
-                </div>
-
-                <div className="div-container p-4">
-                    <DeleteUserForm
-                        className="max-w-xl"
-                        translations={memoedTranslations}
-                    />
-                </div>
+                <ProfilePhoto
+                    translations={memoedTranslations}
+                    className="div-container p-4"
+                />
+                <UpdateProfileInformationForm
+                    mustVerifyEmail={mustVerifyEmail}
+                    status={status}
+                    translations={memoedTranslations}
+                    className="div-container p-4"
+                />
+                <UpdatePasswordForm
+                    translations={memoedTranslations}
+                    className="div-container p-4"
+                />
+                <DeleteUserForm
+                    translations={memoedTranslations}
+                    className="div-container p-4"
+                />
             </div>
         </AuthenticatedLayout>
     );
