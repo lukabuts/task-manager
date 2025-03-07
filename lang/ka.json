@@ -66,6 +66,9 @@
     "my_tasks_page": {
         "title": "ჩემი დავალებები",
         "total": "სულ",
+        "completed": "დასრულებული",
+        "not_completed": "დაუსრულებელი",
+        "today": "დღეს",
         "due": "ვადა",
         "next": "შემდეგი",
         "previous": "წინა",

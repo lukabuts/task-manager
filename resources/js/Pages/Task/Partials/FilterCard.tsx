@@ -8,7 +8,15 @@ const FilterCard = ({
     updateParams,
     my_tasks_page,
     total,
+    task_priority,
 }: FilterCardProps) => {
+    const shownPriority = (): Array<"low" | "medium" | "high"> => {
+        const acceptedPriorities = ["low", "medium", "high"];
+        if (!params.priorities) return [];
+        return params.priorities.filter((priority) =>
+            acceptedPriorities.includes(priority)
+        ) as Array<"low" | "medium" | "high">;
+    };
     return (
         <div className="flex justify-between items-center mb-4 sm:mb-6 gap-2">
             {isFilterApplied ? (
@@ -31,7 +39,7 @@ const FilterCard = ({
                                 updateParams("completed");
                             }}
                         >
-                            Completed
+                            {my_tasks_page.completed}
                         </FilterWrapper>
                     ) : (
                         params.notCompleted && (
@@ -40,7 +48,7 @@ const FilterCard = ({
                                     updateParams("notCompleted");
                                 }}
                             >
-                                Not Completed
+                                {my_tasks_page.not_completed}
                             </FilterWrapper>
                         )
                     )}
@@ -54,38 +62,40 @@ const FilterCard = ({
                             {params.from.split("-").join("/")} -{" "}
                             {params.to
                                 ? params.to.split("-").join("/")
-                                : "Today"}
+                                : my_tasks_page.today}
                         </FilterWrapper>
                     )}
 
-                    {params.priorities &&
-                        Array.isArray(params.priorities) &&
-                        params.priorities.map((priority) => (
-                            <FilterWrapper
-                                onClick={() => {
-                                    const newPriorities = Array.isArray(
-                                        params.priorities
-                                    )
-                                        ? params.priorities.filter(
-                                              (p: string) => p !== priority
-                                          )
-                                        : [];
-                                    if (newPriorities.length > 0) {
-                                        router.get(
-                                            route("tasks.index", {
-                                                ...params,
-                                                priorities: newPriorities,
-                                            })
-                                        );
-                                    } else {
-                                        updateParams("priorities");
-                                    }
-                                }}
-                                key={priority}
-                            >
-                                {priority}
-                            </FilterWrapper>
-                        ))}
+                    {shownPriority().map((priority) => (
+                        <FilterWrapper
+                            onClick={() => {
+                                const newPriorities = Array.isArray(
+                                    params.priorities
+                                )
+                                    ? params.priorities.filter(
+                                          (p: string) => p !== priority
+                                      )
+                                    : [];
+                                if (newPriorities.length > 0) {
+                                    router.get(
+                                        route("tasks.index", {
+                                            ...params,
+                                            priorities: newPriorities,
+                                        })
+                                    );
+                                } else {
+                                    updateParams("priorities");
+                                }
+                            }}
+                            key={priority}
+                        >
+                            {
+                                task_priority[
+                                    priority as "low" | "medium" | "high"
+                                ]
+                            }
+                        </FilterWrapper>
+                    ))}
                 </div>
             ) : (
                 <h1 className="title">{my_tasks_page.title}</h1>
