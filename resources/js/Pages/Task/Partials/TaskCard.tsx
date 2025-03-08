@@ -3,8 +3,6 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { CheckCircleIcon, Circle } from "lucide-react";
 import { Link, router, usePage } from "@inertiajs/react";
-import { memo } from "react";
-import { TranslationType } from "@/types";
 
 const TaskCard = ({ task }: { task: Task }) => {
     const { translations } = usePage().props;

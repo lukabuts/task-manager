@@ -182,3 +182,9 @@ interface FilterCardProps {
 interface Params {
     [key: string]: any;
 }
+
+interface TaskProgressData {
+    completed: number;
+    overdue: number;
+    due: number;
+}

@@ -81,7 +81,9 @@
         }
     },
     "dashboard": {
-        "title": "Dashboard"
+        "title": "Dashboard",
+        "recent_tasks": "Recent Tasks",
+        "no_tasks": "No Tasks"
     },
     "task_page": {
         "title": "Task",

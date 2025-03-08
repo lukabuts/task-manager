@@ -140,6 +140,8 @@ type TranslationType = {
     };
     dashboard: {
         title: string;
+        recent_tasks: string;
+        no_tasks: string;
     };
     setting_page: {
         title: string;

@@ -173,7 +173,6 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
                 <div className="flex gap-4 items-center">
                     <SubmitFormBtn
                         disabled={!data.photo}
-                        processing={processing}
                         recentlySuccessful={recentlySuccessful}
                     />
                     {user.photo && <DeleteProfilePicture />}

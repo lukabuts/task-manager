@@ -1,19 +1,10 @@
 import { Task } from "@/types/global";
 import { Head, useForm } from "@inertiajs/react";
-import TaskFormCard from "@/Components/TaskFormCard";
-import { useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { TaskFormCard } from "./Partials";
 
 const Edit = ({ task }: { task: Task }) => {
-    const {
-        data,
-        setData,
-        errors,
-        patch,
-        reset,
-        processing,
-        recentlySuccessful,
-    } = useForm({
+    const { data, setData, errors, patch, reset, processing } = useForm({
         name: task.name,
         description: task.description,
         due_date: task.due_date,

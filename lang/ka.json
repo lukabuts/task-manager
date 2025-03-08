@@ -82,7 +82,9 @@
         }
     },
     "dashboard": {
-        "title": "დაფა"
+        "title": "დაფა",
+        "recent_tasks": "ბოლო დავალებები",
+        "no_tasks": "დავალებები არ არის"
     },
     "task_page": {
         "title": "დავალება",
