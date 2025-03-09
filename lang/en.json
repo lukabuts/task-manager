@@ -82,8 +82,23 @@
     },
     "dashboard": {
         "title": "Dashboard",
-        "recent_tasks": "Recent Tasks",
-        "no_tasks": "No Tasks"
+        "welcome_message": "Stay productive and manage your tasks efficiently!",
+        "progress": "Task Progress",
+        "recent_tasks": "Recently Added Tasks",
+        "no_tasks": "No tasks available.",
+        "productivity": "Productivity Overview",
+        "completed": "Completed",
+        "pending": "Pending",
+        "overdue": "Overdue",
+        "total_tasks": "Total Created Tasks",
+        "total_completed": "Total Completed Tasks",
+        "weekly_progress": "Weekly task completion rate",
+        "view_task": "View Task",
+        "hello": "Hello",
+        "task_statistics": "Task Statistics",
+        "tasks_completed": "Tasks Completed",
+        "tasks_due": "Tasks Pending",
+        "tasks_overdue": "Overdue Tasks"
     },
     "task_page": {
         "title": "Task",

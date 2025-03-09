@@ -87,7 +87,14 @@ const Settings = ({ className, translations }: ProfilePartialProps) => {
                             checked={isDarkModeOn}
                             onChange={() => {
                                 setTheme(
-                                    user.theme === "dark" ? "light" : "dark"
+                                    userPrefersDark && user.theme === "system"
+                                        ? "light"
+                                        : !userPrefersDark &&
+                                          user.theme === "system"
+                                        ? "light"
+                                        : user.theme === "dark"
+                                        ? "light"
+                                        : "dark"
                                 );
                             }}
                         />

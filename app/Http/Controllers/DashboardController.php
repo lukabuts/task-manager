@@ -12,25 +12,36 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $tasks = $request->user()->tasks()->get();
-        $completed = $tasks->filter(function ($task) {
-            return $task->completed === 1;
-        })->count();
+        $now = Carbon::now()->toDateString();
+        
+        $completed = 0;
+        $due = 0;
+        $overdue = 0;
 
-        $due = $tasks->filter(function ($task) {
-            return $task->due_date >= Carbon::now() && $task->completed !== 1;
-            ;
-        })->count();
+        foreach ($tasks as $task) {
+            $due_date = Carbon::parse($task->due_date)->toDateString();
+            $completed_at = Carbon::parse($task->completed_at)->toDateString();
 
-        $overdue = $tasks->filter(function ($task) {
-            return ($task->due_date < Carbon::now() && $task->completed !== 1) || $task->completed_at < $task->due_date;
-            ;
-        })->count();
+            $pastDue = $due_date < $now;
+            $completedLate = $task->completed && $completed_at > $due_date;
+
+            if ($task->completed && !$pastDue && !$completedLate) {
+                $completed++;
+            }
+            if (!$pastDue && !$completedLate && !$task->completed) {
+                $due++;
+            }
+            if ($pastDue || $completedLate) {
+                $overdue++;
+            }
+        }
 
 
         return Inertia::render('Dashboard/Index', [ 'taskStats' => [
                 'completed' => $completed,
                 'overdue' => $overdue,
                 'due' => $due,
+                'total' => $tasks->count()
         ], "recentTasks" => $tasks->take(5), 'quote' => Inspiring::quote()]);
 
     }

@@ -75,7 +75,7 @@ const TaskFormCard = ({
                             <Input
                                 type="date"
                                 className="min-w-36"
-                                value={data.due_date?.split(" ")[0] || ""}
+                                value={data.due_date?.split("T")[0] || ""}
                                 onChange={(e) => {
                                     setData("due_date", e.target.value);
                                 }}

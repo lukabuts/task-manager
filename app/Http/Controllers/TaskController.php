@@ -15,39 +15,16 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
     public function index(Request $request): Response
     {
-        // Get the current user's tasks
-        $query = $request->user()->tasks()->latest();
+        $tasks = $request->user()->tasks()
+            ->latest()
+            ->filter($request->only(['completed', 'notCompleted', 'priorities', 'from', 'to', 'search']))
+            ->paginate(10);
 
-        // Apply filters
-        if ($request->has('completed')) {
-            $query->where('completed', filter_var($request->input('completed'), FILTER_VALIDATE_BOOLEAN));
-        }
-
-        if ($request->has('notCompleted')) {
-            $query->where('completed', false);
-        }
-
-        if ($request->has('priorities')) {
-            $query->whereIn('priority', $request->input('priorities'));
-        }
-
-        if ($request->has('from') && $request->has('to')) {
-            $query->whereBetween('created_at', [$request->input('from'), $request->input('to')]);
-        }
-
-        if ($request->has('search')) {
-            $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
-        }
-
-        // Paginate the results
-        $tasks = $query->paginate(10);
-
-
-        return Inertia::render('Task/Index', ['tasks' => $tasks, ]);
+        return Inertia::render('Task/Index', ['tasks' => $tasks]);
     }
+
 
 
     /**
@@ -113,9 +90,11 @@ class TaskController extends Controller
     public function update(TaskStoreRequest $request, Task $task): RedirectResponse
     {
         $task->update($request->only('name', 'description', 'due_date', 'priority'));
-        if ($request->task->getChanges()) {
+
+        if ($task->wasChanged()) {
             $task->update(['completed' => false, 'completed_at' => null]);
         }
+
         return Redirect::route('tasks.index')->with([
             'message' => [
                 'type' => 'success',
@@ -124,6 +103,7 @@ class TaskController extends Controller
             ]
         ]);
     }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -142,13 +122,9 @@ class TaskController extends Controller
 
     public function complete(Task $task): void
     {
-        $data = [];
-        if (!$task->completed) {
-            $data = ['completed' => !$task->completed, 'completed_at' => now()];
-        } else {
-            $data= ['completed' => !$task->completed, 'completed_at' => null];
-        }
-
-        $task->update($data);
+        $task->update([
+            'completed' => !$task->completed,
+            'completed_at' => $task->completed ? null : now()
+        ]);
     }
 }

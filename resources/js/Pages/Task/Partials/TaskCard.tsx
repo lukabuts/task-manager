@@ -6,9 +6,10 @@ import { Link, router, usePage } from "@inertiajs/react";
 
 const TaskCard = ({ task }: { task: Task }) => {
     const { translations } = usePage().props;
+    task.due_date = task.due_date.split("T")[0];
+    task.completed_at = task.completed_at?.split("T")[0] || null;
     const isOverdue =
         (task.completed &&
-            task.due_date &&
             task.completed_at &&
             task.completed_at > task.due_date) ||
         (!task.completed &&
