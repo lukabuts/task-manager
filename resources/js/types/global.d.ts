@@ -187,4 +187,5 @@ interface TaskProgressData {
     completed: number;
     overdue: number;
     due: number;
+    total: number;
 }

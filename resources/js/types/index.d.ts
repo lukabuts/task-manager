@@ -140,8 +140,23 @@ type TranslationType = {
     };
     dashboard: {
         title: string;
+        welcome_message: string;
+        progress: string;
         recent_tasks: string;
         no_tasks: string;
+        productivity: string;
+        completed: string;
+        pending: string;
+        overdue: string;
+        total_tasks: string;
+        total_completed: string;
+        weekly_progress: string;
+        view_task: string;
+        hello: string;
+        task_statistics: string;
+        tasks_completed: string;
+        tasks_due: string;
+        tasks_overdue: string;
     };
     setting_page: {
         title: string;

@@ -47,6 +47,9 @@ export default {
             height: {
                 nav: "calc(100dvh - 3rem)",
             },
+            minHeight: {
+                dashboard: "calc(100dvh - 142px)",
+            },
             maxWidth: {
                 nav: "calc(100vw / 6 - 1.9rem)",
             },

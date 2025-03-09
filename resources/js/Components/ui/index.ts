@@ -4,3 +4,6 @@ export * from "./select";
 export * from "./input";
 export * from "./calendar";
 export * from "./textarea";
+export * from "./card";
+export * from "./badge";
+export * from "./progress";

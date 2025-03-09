@@ -1,7 +1,18 @@
 import { TaskProgressData } from "@/types/global";
 import { useRef, useEffect } from "react";
 
-const TaskProgressCanvas = ({ data }: { data: TaskProgressData }) => {
+const TaskProgressCanvas = ({
+    data,
+    trans,
+}: {
+    data: TaskProgressData;
+    trans: {
+        completed: string;
+        pending: string;
+        overdue: string;
+        no_tasks: string;
+    };
+}) => {
     const { completed, overdue, due } = data;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -56,24 +67,24 @@ const TaskProgressCanvas = ({ data }: { data: TaskProgressData }) => {
         <div className="relative w-fit">
             <canvas ref={canvasRef} width={200} height={200}></canvas>
             <div className="absolute top-0 left-0 w-full h-full text-center flex items-center justify-center">
-                <div className="flex flex-col items-start justify-start gap-1">
+                <div className="flex flex-col items-start justify-start gap-1 text-xs">
                     {data.completed > 0 || data.due > 0 || data.overdue > 0 ? (
                         <>
                             <div className="flex items-center gap-2">
                                 <div className="bg-[#4cc790] size-4 rounded-full"></div>
-                                <span>completed</span>
+                                <span>{trans.completed}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="bg-[#ff3b30] size-4 rounded-full"></div>
-                                <span>Overdue</span>
+                                <span>{trans.overdue}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="bg-[#3c9ee5] size-4 rounded-full"></div>
-                                <span>Pending</span>
+                                <span>{trans.pending}</span>
                             </div>
                         </>
                     ) : (
-                        <span>No tasks</span>
+                        <span>{trans.no_tasks}</span>
                     )}
                 </div>
             </div>

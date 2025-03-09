@@ -1,6 +1,7 @@
 import { router } from "@inertiajs/react";
 import FilterWrapper from "./FilterWrapper";
 import { FilterCardProps } from "@/types/global";
+import { formatDate } from "date-fns";
 
 const FilterCard = ({
     isFilterApplied,
@@ -59,9 +60,9 @@ const FilterCard = ({
                                 updateParams("to");
                             }}
                         >
-                            {params.from.split("-").join("/")} -{" "}
+                            {formatDate(params.from, "dd/MM/YYY")} -{" "}
                             {params.to
-                                ? params.to.split("-").join("/")
+                                ? formatDate(params.to, "dd/MM/YYY")
                                 : my_tasks_page.today}
                         </FilterWrapper>
                     )}
