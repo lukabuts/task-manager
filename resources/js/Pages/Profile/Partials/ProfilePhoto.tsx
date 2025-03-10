@@ -90,7 +90,7 @@ const ProfilePhoto = ({ className, translations }: ProfilePartialProps) => {
             />
             <FormWrapper onSubmit={updateProfilePicture}>
                 <div className="flex lg:gap-6 gap-4 items-center my-4 lg:my-6">
-                    <div className="size-40 max-xl:size-32 shrink-0 border dark:border-gray-700 rounded-2xl overflow-hidden">
+                    <div className="size-40 max-xl:size-32 shrink-0 border container-border  rounded-2xl overflow-hidden">
                         {previewImage ? (
                             <img
                                 src={previewImage}

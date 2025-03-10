@@ -20,29 +20,29 @@ export default function Edit({
         <AuthenticatedLayout>
             <Head title={translations.setting_page.title} />
 
-            <div className="mx-auto space-y-6">
+            <div className="mx-auto md:space-y-6 space-y-4">
                 <Settings
                     translations={memoedTranslations}
-                    className="div-container p-4"
+                    className="div-container p-4 md:p-6"
                 />
 
                 <ProfilePhoto
                     translations={memoedTranslations}
-                    className="div-container p-4"
+                    className="div-container p-4 md:p-6"
                 />
                 <UpdateProfileInformationForm
                     mustVerifyEmail={mustVerifyEmail}
                     status={status}
                     translations={memoedTranslations}
-                    className="div-container p-4"
+                    className="div-container p-4 md:p-6"
                 />
                 <UpdatePasswordForm
                     translations={memoedTranslations}
-                    className="div-container p-4"
+                    className="div-container p-4 md:p-6"
                 />
                 <DeleteUserForm
                     translations={memoedTranslations}
-                    className="div-container p-4"
+                    className="div-container p-4 md:p-6"
                 />
             </div>
         </AuthenticatedLayout>

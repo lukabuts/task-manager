@@ -126,7 +126,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
 
     return (
         <>
-            <div className="min-h-svh bg-gray-100 dark:bg-gray-900 p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-6 overflow-hidden">
+            <div className="min-h-svh bg-gray-100 dark:bg-gray-900 p-4 md:p-6 grid grid-cols-6 text-gray-900 dark:text-gray-100 gap-4 md:gap-6 overflow-hidden">
                 {screenWidth >= xlScreen && (
                     <div className="relative col-span-1 max-xl:hidden">
                         <NavCard
@@ -166,7 +166,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                         </div>
                     </>
                 )}
-                <div className="col-span-5 space-y-6 z-10 max-xl:col-span-6">
+                <div className="col-span-5 md:space-y-6 space-y-4 z-10 max-xl:col-span-6">
                     <header
                         className="div-container p-4 flex items-center justify-between gap-4 relative"
                         ref={modalRef}
@@ -206,7 +206,7 @@ export default function AuthenticatedLayout({ children }: PropsWithChildren) {
                                     className="max-xl:hidden"
                                 >
                                     {user.photo ? (
-                                        <div className="size-9 border rounded-full overflow-hidden">
+                                        <div className="size-9 border container-border rounded-full overflow-hidden">
                                             <img
                                                 src={user.photo}
                                                 alt={`${user.name}'s profile picture`}

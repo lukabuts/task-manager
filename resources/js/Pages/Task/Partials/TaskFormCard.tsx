@@ -11,12 +11,13 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-    Textarea,
     Button,
     Input,
 } from "@/Components/ui";
-
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { Toolbar } from "./";
 
 const TaskFormCard = ({
     handleSubmit,
@@ -26,11 +27,28 @@ const TaskFormCard = ({
     type,
     disabled,
 }: TaskFormCardProps) => {
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
     const { translations } = usePage().props;
 
     function selectPriority(priority: "low" | "medium" | "high") {
         setData("priority", priority);
     }
+
+    // Setup Tiptap Editor
+    const editor = useEditor({
+        extensions: [StarterKit],
+        content: data.description || "",
+        onUpdate({ editor }: { editor: any }) {
+            setData("description", editor.getHTML());
+        },
+        editorProps: {
+            attributes: {
+                class: "min-h-32 max-h-52 w-full p-3 text-gray-900 dark:text-gray-100 overflow-auto focus:outline-none",
+            },
+        },
+    });
 
     return (
         <form
@@ -41,7 +59,7 @@ const TaskFormCard = ({
             }}
             className="text-gray-900 dark:text-gray-100 text-sm md:text-base w-full div-container sm:p-4"
         >
-            <div className="flex gap-4 lg:gap-6 w-full border-b dark:border-gray-700 p-4 ">
+            <div className="flex gap-4 lg:gap-6 w-full border-b container-border p-4 ">
                 <div>
                     <FileCheck className="size-8" />
                 </div>
@@ -55,7 +73,9 @@ const TaskFormCard = ({
                     <InputError message={errors.name} className="mt-2" />
                 </div>
             </div>
+
             <div className="space-y-4 w-full p-4">
+                {/* Due Date */}
                 <div className="space-y-1">
                     <div className="flex items-center gap-10">
                         <div className="flex items-center gap-2 h-10">
@@ -82,93 +102,86 @@ const TaskFormCard = ({
                             />
                         </div>
                     </div>
-                    <div>
-                        <InputError message={errors.due_date} />
-                    </div>
+                    <InputError message={errors.due_date} />
                 </div>
-                <div className="space-y-1">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-10">
-                            <div className="flex items-center gap-2 h-10">
-                                <FlagIcon className="size-5" />
-                                <span>
-                                    {translations.task_form_page.priority}
-                                </span>
-                            </div>
 
-                            <Select
-                                value={data.priority}
-                                onValueChange={(e) => {
-                                    selectPriority(
-                                        e as "low" | "medium" | "high"
-                                    );
-                                }}
-                            >
-                                <SelectTrigger
-                                    className={`${
-                                        data.priority === "low"
-                                            ? "bg-green-100 dark:bg-green-900"
-                                            : data.priority === "medium"
-                                            ? "bg-yellow-100 dark:bg-yellow-900"
-                                            : data.priority === "high"
-                                            ? "bg-red-100 dark:bg-red-900"
-                                            : "dark:bg-gray-900 bg-gray-100"
-                                    } w-[180px] dark:border-gray-700`}
-                                >
-                                    <SelectValue
-                                        placeholder={
-                                            translations.task_form_page
-                                                .select_priority
-                                        }
-                                    />
-                                </SelectTrigger>
-                                <SelectContent className="dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
-                                    <SelectGroup>
-                                        <SelectLabel>
-                                            {
-                                                translations.task_form_page
-                                                    .priorities
-                                            }
-                                        </SelectLabel>
-                                        <SelectItem value="low">
-                                            {translations.task_priority.low}
-                                        </SelectItem>
-                                        <SelectItem value="medium">
-                                            {translations.task_priority.medium}
-                                        </SelectItem>
-                                        <SelectItem value="high">
-                                            {translations.task_priority.high}
-                                        </SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                            <div>
-                                <InputError message={errors.priority} />
-                            </div>
+                {/* Priority */}
+                <div className="space-y-1">
+                    <div className="flex items-center gap-10">
+                        <div className="flex items-center gap-2 h-10">
+                            <FlagIcon className="size-5" />
+                            <span>{translations.task_form_page.priority}</span>
                         </div>
+
+                        <Select
+                            value={data.priority}
+                            onValueChange={(e) =>
+                                selectPriority(e as "low" | "medium" | "high")
+                            }
+                        >
+                            <SelectTrigger
+                                className={`${
+                                    data.priority === "low"
+                                        ? "bg-green-100 dark:bg-green-900"
+                                        : data.priority === "medium"
+                                        ? "bg-yellow-100 dark:bg-yellow-900"
+                                        : data.priority === "high"
+                                        ? "bg-red-100 dark:bg-red-900"
+                                        : "dark:bg-gray-900 bg-gray-100"
+                                } w-[180px] container-border `}
+                            >
+                                <SelectValue
+                                    placeholder={
+                                        translations.task_form_page
+                                            .select_priority
+                                    }
+                                />
+                            </SelectTrigger>
+                            <SelectContent className="container-border bg-gray-100 dark:bg-gray-900">
+                                <SelectGroup>
+                                    <SelectLabel>
+                                        {translations.task_form_page.priorities}
+                                    </SelectLabel>
+                                    <SelectItem value="low">
+                                        {translations.task_priority.low}
+                                    </SelectItem>
+                                    <SelectItem value="medium">
+                                        {translations.task_priority.medium}
+                                    </SelectItem>
+                                    <SelectItem value="high">
+                                        {translations.task_priority.high}
+                                    </SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        <InputError message={errors.priority} />
                     </div>
                 </div>
             </div>
-            <div className="p-4  border-b dark:border-gray-700 pt-0 lg:pt-0">
+
+            {/* Description (Tiptap) */}
+            <div className="p-4 border-b container-border pt-0 space-y-2 mb-2">
                 <label htmlFor="description">
                     {translations.task_form_page.description}
                 </label>
-                <Textarea
-                    id="description"
-                    className="dark:bg-gray-900 rounded-lg bg-gray-100 text-gray-900 dark:text-gray-100 mt-4 ld:mt-6 max-h-52 min-h-32 dark:bordzer-gray-700"
-                    placeholder={
-                        translations.task_form_page.description_of_task
-                    }
-                    onChange={(e) => setData("description", e.target.value)}
-                    value={data.description}
-                />
-                <InputError message={errors.description} className="mt-2" />
+
+                <div className="dark:bg-gray-900 bg-gray-100 rounded-md border container-border">
+                    {/* 🆕 Add toolbar above the editor */}
+                    <Toolbar editor={editor} />
+
+                    <EditorContent
+                        editor={editor}
+                        className="task-description-container"
+                    />
+
+                    <InputError message={errors.description} className="p-2" />
+                </div>
             </div>
+
+            {/* Buttons */}
             <div className="p-4 flex justify-end gap-4">
                 <Button
-                    onClick={() => {
-                        window.history.back();
-                    }}
+                    onClick={() => window.history.back()}
                     variant="outline"
                     type="button"
                 >

@@ -7,6 +7,10 @@
         @apply bg-white dark:bg-gray-800 shadow-md rounded-lg border dark:border-gray-700;
     }
 
+    .container-border {
+        @apply dark:border-gray-700 border-gray-200;
+    }
+
     .title {
         @apply sm:text-2xl text-xl font-semibold;
     }
@@ -33,6 +37,20 @@
 
     #filters::-webkit-scrollbar-thumb {
         @apply rounded-sm bg-yellow-dark;
+    }
+    .task-description-container h1 {
+        @apply text-xl font-semibold;
+    }
+
+    .task-description-container h2 {
+        @apply text-lg font-semibold;
+    }
+    .task-description-container ol {
+        @apply list-decimal ml-4;
+    }
+
+    .task-description-container ul {
+        @apply list-disc ml-4;
     }
 }
 

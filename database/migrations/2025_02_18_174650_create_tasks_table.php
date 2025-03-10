@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('name');
             $table->boolean('completed')->default(false);
             $table->dateTime('completed_at')->nullable();
-            $table->dateTime('due_date')->nullable();
-            $table->text('description')->nullable();
+            $table->dateTime('due_date');
+            $table->text('description');
             $table->string('priority')->default('low');
             $table->timestamps();
         });
