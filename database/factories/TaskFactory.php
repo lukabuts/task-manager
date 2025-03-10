@@ -19,8 +19,6 @@ class TaskFactory extends Factory
         return [
             'name' => $this->faker->sentence,
             'user_id' => 1,
-            'completed' => $this->faker->boolean,
-            'completed_at' => $this->faker->boolean ? $this->faker->dateTimeBetween('-1 year', 'now') : null,
             'priority' => $this->faker->randomElement(['low', 'medium', 'high']),
             'description' => $this->faker->paragraph,
             'due_date' => $this->faker->dateTimeBetween('now', '+1 year'),

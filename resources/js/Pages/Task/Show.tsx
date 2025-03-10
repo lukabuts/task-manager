@@ -23,7 +23,7 @@ const Show = ({ task }: { task: Task }) => {
                 <div className="flex items-center justify-between mb-4">
                     <button
                         onClick={() => window.history.back()}
-                        className="flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                        className="flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white text-sm"
                     >
                         <ArrowLeftIcon className="w-5 h-5 mr-2" />
                         {translations.task_page.back_to_tasks}
@@ -36,9 +36,10 @@ const Show = ({ task }: { task: Task }) => {
                 <h1 className="title">{task.name}</h1>
 
                 {/* Task Description */}
-                <p className="mt-2 text-gray-700 dark:text-gray-300">
-                    {task.description || "No description available"}
-                </p>
+                <div
+                    className="mt-2 task-description-container"
+                    dangerouslySetInnerHTML={{ __html: task.description }}
+                />
 
                 {/* Task Info */}
                 <div className="mt-4 space-y-2 text-sm">
@@ -72,11 +73,11 @@ const Show = ({ task }: { task: Task }) => {
                             "text-gray-500": !task.completed,
                         })}
                     >
-                        {task.completed
+                        {task.completed && task.completed_at
                             ? `${
                                   translations.task_page.completed.completed
                               }: ${format(
-                                  new Date(task.completed_at || ""),
+                                  new Date(task.completed_at),
                                   "dd MMM yyyy"
                               )}`
                             : `${translations.task_page.completed.not}`}

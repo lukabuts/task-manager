@@ -1,5 +1,4 @@
 import { Button } from "@/Components/ui";
-import { TranslationType } from "@/types";
 import { PaginatedTasks } from "@/types/global";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ReactPaginate from "react-paginate";
@@ -45,7 +44,7 @@ const PaginationControls = ({
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={2}
                 renderOnZeroPageCount={null}
-                pageLinkClassName="h-9 px-4 py-2 border border-input bg-background shadow-sm hover:bg-gray-100 hover:text-accent-foreground dark:bg-gray-700 dark:hover:text-gray-50 dark:hover:bg-gray-800 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 max-md:hidden"
+                pageLinkClassName="h-9 px-4 py-2 border container-border bg-background shadow-sm hover:bg-gray-100 hover:text-accent-foreground dark:bg-gray-700 dark:hover:text-gray-50 dark:hover:bg-gray-800 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 max-md:hidden"
                 activeLinkClassName="bg-gray-100 dark:bg-gray-800"
             />
         </div>

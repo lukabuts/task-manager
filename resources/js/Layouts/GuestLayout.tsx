@@ -64,10 +64,10 @@ export default function Guest({ children }: PropsWithChildren) {
                         }
                     }}
                 >
-                    <SelectTrigger className="w-[180px] dark:border-gray-700">
+                    <SelectTrigger className="w-[180px] container-border ">
                         <SelectValue placeholder="Select Language" />
                     </SelectTrigger>
-                    <SelectContent className="bg-gray-100 dark:bg-gray-900 dark:border-gray-700">
+                    <SelectContent className="dark:bg-gray-900 container-border ">
                         <SelectGroup>
                             <SelectLabel>Languages</SelectLabel>
                             <SelectItem value="ka">

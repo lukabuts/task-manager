@@ -2,7 +2,7 @@ import { FilterDate, Filters, SearchProps } from "@/types/global";
 import { router, usePage } from "@inertiajs/react";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import { format, formatDate, set } from "date-fns";
+import { format, formatDate } from "date-fns";
 import { useEffect, useState } from "react";
 import {
     Calendar,
@@ -11,6 +11,7 @@ import {
     PopoverTrigger,
     Button,
     Input,
+    Checkbox,
 } from "@/Components/ui";
 
 const SearchModal = ({
@@ -103,19 +104,17 @@ const SearchModal = ({
 
     return (
         <div
-            className={`absolute top-20 shadow-lg left-0 div-container w-full p-4 z-50 ${
+            className={`absolute top-20 shadow-lg left-0 div-container w-full p-4 z-50 text-sm ${
                 hidden ? "animate-in" : ""
             } ${!show ? "hidden" : ""}`}
         >
             <div className="flex flex-col gap-4">
                 <p>{translations.layout.search_modal.filter_by}:</p>
-                <div className="space-y-2 border-b dark:border-b-gray-700 pb-2">
+                <div className="space-y-2 container-border pb-2">
                     <div className="flex items-center gap-4">
                         <p>{translations.layout.search_modal.completed}</p>
-                        <Input
-                            type="checkbox"
-                            className="size-6"
-                            onChange={(e) => {
+                        <Checkbox
+                            onCheckedChange={() => {
                                 setFilters({
                                     ...filters,
                                     completed: filters.completed ? false : true,
@@ -126,10 +125,9 @@ const SearchModal = ({
                     </div>
                     <div className="flex items-center gap-4">
                         <p>{translations.layout.search_modal.not_completed}</p>
-                        <Input
-                            type="checkbox"
-                            className="size-6"
-                            onChange={(e) => {
+                        <Checkbox
+                            checked={filters.notCompleted}
+                            onCheckedChange={() => {
                                 setFilters({
                                     ...filters,
                                     notCompleted: filters.notCompleted
@@ -137,7 +135,6 @@ const SearchModal = ({
                                         : true,
                                 });
                             }}
-                            checked={filters.notCompleted}
                         />
                     </div>
                 </div>
@@ -211,7 +208,7 @@ const SearchModal = ({
                 </div>
                 <div className="space-y-2">
                     <p>{translations.layout.search_modal.priority}:</p>
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                         {priorities.map((priority) => (
                             <button
                                 key={priority}

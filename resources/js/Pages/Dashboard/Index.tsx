@@ -26,14 +26,14 @@ export default function Dashboard({
         <AuthenticatedLayout>
             <Head title={translations.dashboard.title} />
 
-            <div className="min-h-dashboard flex flex-col space-y-6">
+            <div className="min-h-dashboard flex flex-col md:space-y-6 space-y-4">
                 {/* Greeting Card */}
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-2xl">
+                        <h1 className="title">
                             {translations.dashboard.hello},{" "}
                             {auth.user.name.split(" ")[0]} 👋
-                        </CardTitle>
+                        </h1>
                     </CardHeader>
                     <CardContent>
                         <p className="text-gray-500">
@@ -43,7 +43,7 @@ export default function Dashboard({
                 </Card>
 
                 {/* Dashboard Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 flex-grow">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-6 gap-4 flex-grow">
                     {/* Combined Task Progress & Task Statistics */}
                     <Card className="col-span-1">
                         <CardHeader>
@@ -125,7 +125,7 @@ export default function Dashboard({
                                         <Link
                                             href={route("tasks.show", task.id)}
                                             key={task.id}
-                                            className="flex items-center justify-between p-3 rounded-lg transition dark:bg-gray-900 bg-gray-100 border dark:border-gray-700"
+                                            className="flex items-center justify-between p-3 rounded-lg transition dark:bg-gray-900 bg-gray-100 border container-border gap-1"
                                         >
                                             <p className="font-medium">
                                                 {task.name}
