@@ -18,13 +18,13 @@ class TaskController extends Controller
     public function index(Request $request): Response
     {
         $tasks = $request->user()->tasks()
+            ->select('id', 'name', 'priority', 'due_date', 'completed', 'completed_at')
             ->latest()
             ->filter($request->only(['completed', 'notCompleted', 'priorities', 'from', 'to', 'search']))
             ->paginate(10);
 
         return Inertia::render('Task/Index', ['tasks' => $tasks]);
     }
-
 
 
     /**

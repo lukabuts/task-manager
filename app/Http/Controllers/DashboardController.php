@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $tasks = $request->user()->tasks()->get();
+        $tasks = $request->user()->tasks()->latest()->get();
         $now = Carbon::now()->toDateString();
         
         $completed = 0;
@@ -42,7 +41,7 @@ class DashboardController extends Controller
                 'overdue' => $overdue,
                 'due' => $due,
                 'total' => $tasks->count()
-        ], "recentTasks" => $tasks->take(5), 'quote' => Inspiring::quote()]);
+        ], "recentTasks" => $tasks->take(5)]);
 
     }
 }

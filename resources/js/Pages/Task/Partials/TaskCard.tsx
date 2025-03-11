@@ -19,16 +19,14 @@ const TaskCard = ({ task }: { task: Task }) => {
         <Link
             href={route("tasks.show", task.id)}
             key={task.id}
-            className="flex items-center justify-between div-container p-4 gap-2 break-all"
+            className="flex items-center justify-between div-container p-4 gap-4 rounded-xl border dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
         >
-            <div>
-                <h3 className="text-lg font-semibold line-clamp-1">
+            <div className="flex flex-col gap-2 min-w-0">
+                <h3 className="text-base font-semibold line-clamp-1 break-words">
                     {task.name}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 text-wrap">
-                    {task.description}
-                </p>
-                <div className="flex items-center gap-2 mt-2 text-sm">
+
+                <div className="flex items-center gap-2 flex-wrap">
                     <span
                         className={clsx("px-2 py-1 rounded-md font-medium", {
                             "bg-green-100 text-green-700":
@@ -70,6 +68,7 @@ const TaskCard = ({ task }: { task: Task }) => {
                         }
                     );
                 }}
+                className="shrink-0"
             >
                 {task.completed ? (
                     <CheckCircleIcon className="size-6 text-green-500" />
