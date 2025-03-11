@@ -60,9 +60,9 @@ const FilterCard = ({
                                 updateParams("to");
                             }}
                         >
-                            {formatDate(params.from, "dd/MM/YYY")} -{" "}
+                            {formatDate(params.from, "dd/MM/yyy")} -{" "}
                             {params.to
-                                ? formatDate(params.to, "dd/MM/YYY")
+                                ? formatDate(params.to, "dd/MM/yyy")
                                 : my_tasks_page.today}
                         </FilterWrapper>
                     )}

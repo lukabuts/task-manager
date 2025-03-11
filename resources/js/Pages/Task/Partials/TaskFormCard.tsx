@@ -45,7 +45,7 @@ const TaskFormCard = ({
         },
         editorProps: {
             attributes: {
-                class: "min-h-32 max-h-52 w-full p-3 text-gray-900 dark:text-gray-100 overflow-auto focus:outline-none",
+                class: "sm:h-72 h-56 w-full p-3 text-gray-900 dark:text-gray-100 overflow-auto focus:outline-none",
             },
         },
     });
@@ -59,9 +59,9 @@ const TaskFormCard = ({
             }}
             className="text-gray-900 dark:text-gray-100 text-sm md:text-base w-full div-container sm:p-4"
         >
-            <div className="flex gap-4 lg:gap-6 w-full border-b container-border p-4 ">
+            <div className="flex items-center gap-4 lg:gap-6 w-full border-b container-border p-4 ">
                 <div>
-                    <FileCheck className="size-8" />
+                    <FileCheck className="sm:size-8 size-6" />
                 </div>
                 <div className="w-full">
                     <Input

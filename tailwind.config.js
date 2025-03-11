@@ -10,6 +10,7 @@ export default {
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.tsx",
     ],
+    safelist: ["low-priority", "medium-priority", "high-priority"],
 
     theme: {
         extend: {

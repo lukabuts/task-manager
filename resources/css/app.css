@@ -39,11 +39,11 @@
         @apply rounded-sm bg-yellow-dark;
     }
     .task-description-container h1 {
-        @apply text-xl font-semibold;
+        @apply text-xl font-semibold my-2;
     }
 
     .task-description-container h2 {
-        @apply text-lg font-semibold;
+        @apply text-lg font-semibold my-1;
     }
     .task-description-container ol {
         @apply list-decimal ml-4;

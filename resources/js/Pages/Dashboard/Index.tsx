@@ -10,17 +10,17 @@ import {
     Progress,
     Badge,
 } from "@/Components/ui";
+import { getRandomQuote } from "@/lib/quote";
 
 export default function Dashboard({
     taskStats,
     recentTasks,
-    quote,
 }: {
     taskStats: TaskProgressData;
     recentTasks: Task[];
-    quote: string;
 }) {
-    const { auth, translations } = usePage().props;
+    const { auth, translations, locale } = usePage().props;
+    const quote = getRandomQuote(locale);
 
     return (
         <AuthenticatedLayout>
@@ -47,7 +47,7 @@ export default function Dashboard({
                     {/* Combined Task Progress & Task Statistics */}
                     <Card className="col-span-1">
                         <CardHeader>
-                            <CardTitle>
+                            <CardTitle className="text-lg">
                                 {translations.dashboard.task_statistics}
                             </CardTitle>
                         </CardHeader>
@@ -159,7 +159,18 @@ export default function Dashboard({
 
                 {/* Motivational Quote */}
                 <div className="text-lg italic text-gray-500 col-span-full text-center mt-auto">
-                    <div dangerouslySetInnerHTML={{ __html: quote }} />
+                    <div className="text-center">
+                        <span className="mt-4 text-lg italic text-gray-600">
+                            “{quote.quote}” -
+                        </span>{" "}
+                        {quote.authorLink !== "" ? (
+                            <a href={quote.authorLink} target="_blank">
+                                {quote.author}
+                            </a>
+                        ) : (
+                            quote.author
+                        )}
+                    </div>
                 </div>
             </div>
         </AuthenticatedLayout>
